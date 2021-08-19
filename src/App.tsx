@@ -8,6 +8,8 @@ import {
 import Home from "./pages/home"
 import About from "./pages/about";
 
+
+
 export default function Nav() {
   return (
     <Router>
