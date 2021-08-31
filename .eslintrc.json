@@ -23,5 +23,5 @@
     ],
     "rules": {
     },
-    "ignorePatterns": ["*.svg", "*.css"]
+    "ignorePatterns": ["webpack*.js"]
 }
