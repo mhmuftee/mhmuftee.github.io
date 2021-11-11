@@ -5,6 +5,7 @@
     },
     "extends": [
         "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
         "airbnb-typescript",
         "prettier"
     ],
@@ -18,10 +19,21 @@
         "project": "./tsconfig.json"
     },
     "plugins": [
+        "import",
         "react",
         "@typescript-eslint"
     ],
     "rules": {
+        "no-param-reassign": "off",
+        "react/no-children-prop": "off",
+        "react/jsx-props-no-spreading": "off"
     },
-    "ignorePatterns": ["webpack*.js"]
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "ignorePatterns": [
+        "webpack*.js"
+    ]
 }
