@@ -19,9 +19,11 @@
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
     "clsx": "^1.1.1",
+    "feather-icons": "^4.28.0",
     "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-feather": "^2.0.9",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
@@ -62,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "@types/feather-icons": "^4.7.0",
     "@types/react-router-dom": "^5.3.2",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",

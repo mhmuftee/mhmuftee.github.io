@@ -2,10 +2,10 @@ import { ThemeOptions as MuiThemeOptions } from "@mui/material/styles"
 import React from "react"
 
 export interface ThemeOptions extends MuiThemeOptions {
-  header: Header
-  sidebar: SideBar
-  body: Body
-  footer: Footer
+  header?: Header
+  sidebar?: SideBar
+  body?: Body
+  footer?: Footer
 }
 
 export interface Header {

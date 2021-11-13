@@ -1,6 +1,12 @@
 import * as React from "react"
-import { Navigate, Route, Routes } from "react-router-dom"
-import { MainLayout, MainLayoutType, Pages, PageDataType } from "pages"
+import { Route, Routes } from "react-router-dom"
+import {
+  HomePage,
+  MainLayout,
+  MainLayoutType,
+  Pages,
+  PageDataType,
+} from "pages"
 
 const childRoutes = (Layout: MainLayoutType, routes: PageDataType[]) =>
   routes.map(({ id, path, Component }) => (
@@ -18,7 +24,8 @@ const childRoutes = (Layout: MainLayoutType, routes: PageDataType[]) =>
 const AppRoutes = () => (
   <Routes>
     {childRoutes(MainLayout as MainLayoutType, Pages)}
-    <Route path="/" element={<Navigate replace to="/home" />} />
+    <Route path="/" element={<HomePage />} />
+    <Route path="/home" element={<HomePage />} />
   </Routes>
 )
 

@@ -1,23 +1,32 @@
 import React from "react"
 import { styled } from "@mui/material/styles"
 import {
-  AppBar,
+  AppBar as MuiAppBar,
   Toolbar as MuiToolbar,
   IconButton,
-  Hidden,
 } from "@mui/material"
-import { useAppDispatch } from "redux/hooks"
-import { openSideBarMobile } from "redux/reducers/ui/uiSlice"
-import { Brightness4, Menu } from "@mui/icons-material"
+import { Menu, Moon as Night, Sun as Day } from "react-feather"
+import { useAppDispatch, useAppSelector } from "redux/hooks"
+import {
+  openSideBarMobile,
+  changeTheme,
+  selectThemeMode,
+} from "redux/reducers/ui/uiSlice"
 import Tooltip from "components/Tooltip"
 
 const Filler = styled("div")({
   flexGrow: 1,
 })
 
-const Header = styled(AppBar)(({ theme }) => ({
+const NormalAppBar = styled(MuiAppBar)(({ theme }) => ({
   minHeight: theme.header.height,
   background: theme.header.background,
+  padding: "0 !important",
+}))
+
+const TransparentAppBar = styled(MuiAppBar)(({ theme }) => ({
+  minHeight: theme.header.height,
+  color: "transparent",
   padding: "0 !important",
 }))
 
@@ -25,36 +34,58 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.header.height,
 }))
 
-const HeaderFC = () => {
+type HeaderProps = {
+  transparent: Boolean
+}
+
+const HeaderComponent = (props: HeaderProps) => {
   const dispatch = useAppDispatch()
+  const { transparent } = props
+  const themeMode = useAppSelector(selectThemeMode)
+
+  const Themeicon = themeMode === "dark" ? Day : Night
+
+  const handleChangeTheme = () => {
+    if (themeMode === "dark") dispatch(changeTheme("light"))
+    if (themeMode === "light") dispatch(changeTheme("dark"))
+  }
+
+  const AppBar = transparent ? TransparentAppBar : NormalAppBar
 
   return (
-    <Header position="fixed" elevation={0}>
-      <Toolbar>
-        <Hidden mdUp>
+    <>
+      <AppBar position="fixed" elevation={0}>
+        <Toolbar>
           <IconButton
             edge="start"
-            color="inherit"
+            color="secondary"
             aria-label="open drawer"
             onClick={() => dispatch(openSideBarMobile())}
           >
             <Menu />
           </IconButton>
-        </Hidden>
-        <Filler />
-        <Tooltip title="change theme" aria-label="change theme">
-          <IconButton
-            edge="end"
-            aria-label="change theme"
-            aria-haspopup="true"
-            color="primary"
-          >
-            <Brightness4 />
-          </IconButton>
-        </Tooltip>
-      </Toolbar>
-    </Header>
+          <Filler />
+          <Tooltip title="change theme" aria-label="change theme">
+            <IconButton
+              edge="end"
+              aria-label="change theme"
+              aria-haspopup="true"
+              color="secondary"
+              id="mode"
+              onClick={handleChangeTheme}
+            >
+              <Themeicon />
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </>
   )
 }
 
-export default HeaderFC
+HeaderComponent.defaultProps = {
+  transparent: false,
+}
+
+export default HeaderComponent

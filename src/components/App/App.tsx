@@ -1,15 +1,14 @@
 import * as React from "react"
-import { ThemeProvider } from "@mui/material/styles"
-import CssBaseline from "@mui/material/CssBaseline"
+import { CssBaseline } from "@mui/material"
 import { BrowserRouter as Router } from "react-router-dom"
 import { StylesProvider } from "@mui/styles"
 import Routes from "routes"
-import theme from "theme"
+import ThemeProvider from "theme/ThemeProvider"
 
 const App = () => (
   <>
     <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <CssBaseline />
         <Router>
           <Routes />

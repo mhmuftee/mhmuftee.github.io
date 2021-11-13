@@ -1,6 +1,9 @@
-import { createTheme } from "@mui/material/styles"
+import { createTheme, Theme } from "@mui/material/styles"
 import { ThemeOptions } from "./types"
-import variants from "./variants"
+import { lightVariant } from "./lightVariant"
+import { darkVariant } from "./darkVariant"
+
+const variants = [lightVariant, darkVariant]
 
 const createCustomTheme = (variant: ThemeOptions) =>
   createTheme({
@@ -12,6 +15,13 @@ const createCustomTheme = (variant: ThemeOptions) =>
     footer: variant.footer,
   })
 
-const themes = variants.map((variant) => createCustomTheme(variant))
+const themes = new Map<string, Theme>()
 
-export default themes[0]
+variants.forEach((variant) => {
+  const mode = variant.palette?.mode
+  if (mode) themes.set(mode, createCustomTheme(variant))
+})
+
+const getTheme = (mode: string) => themes.get(mode) as Theme
+
+export { getTheme }

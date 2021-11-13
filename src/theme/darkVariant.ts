@@ -1,6 +1,6 @@
 import { ThemeOptions } from "./types"
 
-const darkVariant: ThemeOptions = {
+export const darkVariant: ThemeOptions = {
   palette: {
     mode: "dark",
     primary: {
@@ -9,7 +9,7 @@ const darkVariant: ThemeOptions = {
       contrastText: "#FFF",
     },
     secondary: {
-      main: "#00acc1", // "#9c27b0",
+      main: "#E4F6F8", // "#9c27b0",
       light: "#E4F6F8", // "#D4A2DD",
       contrastText: "#FFF",
     },
@@ -39,7 +39,3 @@ const darkVariant: ThemeOptions = {
     height: 28,
   },
 }
-
-const variants = [darkVariant]
-
-export default variants

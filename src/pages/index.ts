@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactNode } from "react"
 import { SvgIcon } from "@mui/material"
-import { Home as HomeIcon, Info as AboutIcon } from "@mui/icons-material"
+import { Info as AboutIcon } from "@mui/icons-material"
 
 import MainLayout, { MainLayoutType } from "./Layout"
 import Homecomponent from "./home"
@@ -15,14 +15,6 @@ type Page = {
   children?: ReactNode
 }
 
-const HomePage: Page = {
-  id: "Home",
-  path: "/home",
-  header: "Home",
-  icon: HomeIcon,
-  Component: Homecomponent,
-}
-
 const AboutPage: Page = {
   id: "About",
   path: "/about",
@@ -31,8 +23,8 @@ const AboutPage: Page = {
   Component: Aboutcomponent,
 }
 
-const Pages = [HomePage, AboutPage]
+const Pages = [AboutPage]
 
 export type { MainLayoutType, Page as PageDataType }
 
-export { MainLayout, Pages }
+export { Homecomponent as HomePage, MainLayout, Pages }
