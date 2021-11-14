@@ -15,7 +15,7 @@ import {
   selectOpenSideBar,
 } from "redux/reducers/ui/uiSlice"
 
-import { SideBarPages } from "pages"
+import { Pages } from "pages"
 import { BUTTON_SLIDER } from "utils/constants"
 import Tooltip from "../Tooltip"
 
@@ -88,7 +88,7 @@ export default function MiniDrawer() {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader />
         <List>
-          {SideBarPages.map(({ path, header, icon }) => (
+          {Pages.map(({ path, header, icon }) => (
             <NavItem
               key={path}
               path={path}

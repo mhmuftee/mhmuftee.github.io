@@ -4,6 +4,7 @@ import { Toolbar as MuiToolbar } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import Header from "components/Header"
 import { FloatingSidebar } from "components/Sidebar"
+import { useLocation } from "react-router-dom"
 
 const Root = styled("div")({
   display: "flex",
@@ -20,10 +21,7 @@ const MainContent = styled("main")({
 const Page = styled("div")(({ theme }) => ({
   flexGrow: 1,
   background: theme.body.background,
-  // backgroundImage:
-  //  "url(https://source.unsplash.com/collection/21649636/1600x900)",
   padding: theme.spacing(2),
-  // overflowY: "auto",
   overflowX: "hidden",
   height: "100%",
 }))
@@ -37,13 +35,17 @@ type MainLayoutProps = PropsWithChildren<{}>
 export default function MainLayoutView(props: MainLayoutProps) {
   const { children } = props
 
+  const { pathname } = useLocation()
+
+  const isHomePage = pathname === "/"
+
   return (
     <Root>
       <CssBaseline />
-      <Header />
+      <Header transparent={isHomePage} />
       <FloatingSidebar />
       <MainContent>
-        <Toolbar />
+        {isHomePage ? null : <Toolbar />}
         <Page>{children}</Page>
       </MainContent>
     </Root>

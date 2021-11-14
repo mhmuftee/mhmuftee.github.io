@@ -73,7 +73,6 @@ const HeaderComponent = (props: HeaderProps) => {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <Toolbar />
     </>
   )
 }

@@ -6,6 +6,7 @@ import uiReducer from "./ui/uiSlice"
 const uiPersistConfig = {
   key: "ui",
   storage,
+  whitelist: ["themeMode"],
 }
 
 const reducers = {
