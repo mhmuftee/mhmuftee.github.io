@@ -38,4 +38,8 @@ export const darkVariant: ThemeOptions = {
     background: "#d3ffff",
     height: 28,
   },
+  particle: {
+    nodecolor: "#FFFFFF",
+    linkcolor: "#FFFFFF",
+  },
 }

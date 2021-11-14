@@ -3,7 +3,7 @@ import { SvgIcon } from "@mui/material"
 import { Info as AboutIcon } from "@mui/icons-material"
 
 import MainLayout, { MainLayoutType } from "./Layout"
-import Homecomponent from "./home"
+import Homecomponent from "./Home"
 import Aboutcomponent from "./about"
 
 type Page = {
@@ -23,8 +23,18 @@ const AboutPage: Page = {
   Component: Aboutcomponent,
 }
 
+const HomePage: Page = {
+  id: "Home",
+  path: "/home",
+  header: "Home",
+  icon: AboutIcon,
+  Component: Homecomponent,
+}
+
 const Pages = [AboutPage]
+
+const SideBarPages = [HomePage, AboutPage]
 
 export type { MainLayoutType, Page as PageDataType }
 
-export { Homecomponent as HomePage, MainLayout, Pages }
+export { Homecomponent as LandingPage, MainLayout, Pages, SideBarPages }

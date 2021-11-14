@@ -5,7 +5,6 @@ import MuiDrawer from "@mui/material/Drawer"
 import { useDispatch, useSelector } from "react-redux"
 import List from "@mui/material/List"
 import Hidden from "@mui/material/Hidden"
-import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import LeftIcon from "@mui/icons-material/ChevronLeft"
 import RightIcon from "@mui/icons-material/ChevronRight"
@@ -13,13 +12,10 @@ import RightIcon from "@mui/icons-material/ChevronRight"
 import {
   closeSideBar,
   openSideBar,
-  openSideBarMobile,
-  closeSideBarMobile,
   selectOpenSideBar,
-  selectOpenSideBarMobile,
 } from "redux/reducers/ui/uiSlice"
 
-import { Pages } from "pages"
+import { SideBarPages } from "pages"
 import { BUTTON_SLIDER } from "utils/constants"
 import Tooltip from "../Tooltip"
 
@@ -45,12 +41,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
     width: `calc(${theme.spacing(7)} + 1px)`,
   },
 })
-
-const Root = styled("nav")(({ theme }) => ({
-  [theme.breakpoints.up("md")]: {
-    flexShrink: 0,
-  },
-}))
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
@@ -88,66 +78,38 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MiniDrawer() {
   const open = useSelector(selectOpenSideBar)
-  const mobileOpen = useSelector(selectOpenSideBarMobile)
   const dispatch = useDispatch()
   const SliderIcon = open ? LeftIcon : RightIcon
   const toggleDrawer = () =>
     open ? dispatch(closeSideBar()) : dispatch(openSideBar())
 
-  const toggleDrawerMobile = (
-    event: React.KeyboardEvent | React.MouseEvent
-  ) => {
-    if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
-    ) {
-      return
-    }
-
-    if (mobileOpen) dispatch(closeSideBarMobile())
-    else dispatch(openSideBarMobile())
-  }
-
   return (
-    <Root>
-      <Hidden mdUp implementation="css">
-        <Drawer anchor="left" open={mobileOpen} onClose={toggleDrawerMobile}>
-          <Toolbar />
-          <List>
-            {Pages.map(({ path, header, icon }) => (
-              <NavItem key={path} path={path} text={header} icon={icon} />
-            ))}
-          </List>
-        </Drawer>
-      </Hidden>
-      <Hidden smDown implementation="css">
-        <Drawer variant="permanent" open={open}>
-          <DrawerHeader />
-          <List>
-            {Pages.map(({ path, header, icon }) => (
-              <NavItem
-                key={path}
-                path={path}
-                text={header}
-                icon={icon}
-                showTooltip={!open}
-              />
-            ))}
-          </List>
-          <Filler />
-          <Tooltip title={open ? "" : "Open sidebar"}>
-            <Slider
-              variant="contained"
-              onClick={toggleDrawer}
-              color="secondary"
-              startIcon={<SliderIcon />}
-            >
-              {open && <Typography variant="body2">{BUTTON_SLIDER}</Typography>}
-            </Slider>
-          </Tooltip>
-        </Drawer>
-      </Hidden>
-    </Root>
+    <Hidden smDown implementation="css">
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader />
+        <List>
+          {SideBarPages.map(({ path, header, icon }) => (
+            <NavItem
+              key={path}
+              path={path}
+              text={header}
+              icon={icon}
+              showTooltip={!open}
+            />
+          ))}
+        </List>
+        <Filler />
+        <Tooltip title={open ? "" : "Open sidebar"}>
+          <Slider
+            variant="contained"
+            onClick={toggleDrawer}
+            color="secondary"
+            startIcon={<SliderIcon />}
+          >
+            {open && <Typography variant="body2">{BUTTON_SLIDER}</Typography>}
+          </Slider>
+        </Tooltip>
+      </Drawer>
+    </Hidden>
   )
 }

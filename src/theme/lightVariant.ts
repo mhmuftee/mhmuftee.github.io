@@ -1,3 +1,4 @@
+import { green, red } from "@mui/material/colors"
 import { ThemeOptions } from "./types"
 
 export const lightVariant: ThemeOptions = {
@@ -11,7 +12,7 @@ export const lightVariant: ThemeOptions = {
   },
   header: {
     height: 70,
-    background: "#FFdf",
+    background: "#F332df",
   },
   sidebar: {
     width: 210,
@@ -27,5 +28,9 @@ export const lightVariant: ThemeOptions = {
   footer: {
     background: "#FFdf",
     height: 28,
+  },
+  particle: {
+    nodecolor: red[500],
+    linkcolor: green[500],
   },
 }

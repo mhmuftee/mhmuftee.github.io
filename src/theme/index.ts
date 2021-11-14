@@ -13,6 +13,7 @@ const createCustomTheme = (variant: ThemeOptions) =>
     sidebar: variant.sidebar,
     body: variant.body,
     footer: variant.footer,
+    particle: variant.particle,
   })
 
 const themes = new Map<string, Theme>()

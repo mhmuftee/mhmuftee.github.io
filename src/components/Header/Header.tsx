@@ -1,14 +1,11 @@
 import React from "react"
 import { styled } from "@mui/material/styles"
-import {
-  AppBar as MuiAppBar,
-  Toolbar as MuiToolbar,
-  IconButton,
-} from "@mui/material"
+import { Toolbar as MuiToolbar, IconButton } from "@mui/material"
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import { Menu, Moon as Night, Sun as Day } from "react-feather"
 import { useAppDispatch, useAppSelector } from "redux/hooks"
 import {
-  openSideBarMobile,
+  openSideBar,
   changeTheme,
   selectThemeMode,
 } from "redux/reducers/ui/uiSlice"
@@ -18,15 +15,12 @@ const Filler = styled("div")({
   flexGrow: 1,
 })
 
-const NormalAppBar = styled(MuiAppBar)(({ theme }) => ({
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})<MuiAppBarProps>(({ theme, color }) => ({
+  color: color === "transparent" ? color : "default",
+  background: color === "transparent" ? "default" : theme.header.background,
   minHeight: theme.header.height,
-  background: theme.header.background,
-  padding: "0 !important",
-}))
-
-const TransparentAppBar = styled(MuiAppBar)(({ theme }) => ({
-  minHeight: theme.header.height,
-  color: "transparent",
   padding: "0 !important",
 }))
 
@@ -50,17 +44,17 @@ const HeaderComponent = (props: HeaderProps) => {
     if (themeMode === "light") dispatch(changeTheme("dark"))
   }
 
-  const AppBar = transparent ? TransparentAppBar : NormalAppBar
+  const headerColor = transparent ? "transparent" : "default"
 
   return (
     <>
-      <AppBar position="fixed" elevation={0}>
+      <AppBar position="fixed" elevation={0} color={headerColor}>
         <Toolbar>
           <IconButton
             edge="start"
             color="secondary"
             aria-label="open drawer"
-            onClick={() => dispatch(openSideBarMobile())}
+            onClick={() => dispatch(openSideBar())}
           >
             <Menu />
           </IconButton>

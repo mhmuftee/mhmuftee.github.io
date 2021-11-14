@@ -1,3 +1,4 @@
 import Sidebar from "./Sidebar"
+import FloatingSidebar from "./FloatingSidebar"
 
-export default Sidebar
+export { Sidebar, FloatingSidebar }

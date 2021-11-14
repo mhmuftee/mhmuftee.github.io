@@ -1,10 +1,10 @@
 import * as React from "react"
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, Navigate } from "react-router-dom"
 import {
-  HomePage,
+  LandingPage,
   MainLayout,
   MainLayoutType,
-  Pages,
+  SideBarPages,
   PageDataType,
 } from "pages"
 
@@ -23,9 +23,9 @@ const childRoutes = (Layout: MainLayoutType, routes: PageDataType[]) =>
 
 const AppRoutes = () => (
   <Routes>
-    {childRoutes(MainLayout as MainLayoutType, Pages)}
-    <Route path="/" element={<HomePage />} />
-    <Route path="/home" element={<HomePage />} />
+    {childRoutes(MainLayout as MainLayoutType, SideBarPages)}
+    <Route path="/" element={<LandingPage />} />
+    <Route path="/home" element={<Navigate replace to="/" />} />
   </Routes>
 )
 

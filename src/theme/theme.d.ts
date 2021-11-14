@@ -7,6 +7,8 @@ import {
   BodyOptions,
   Footer,
   FooterOptions,
+  Particle,
+  ParticleOptions,
 } from "./types"
 
 declare module "@mui/material/styles/createTheme" {
@@ -15,6 +17,7 @@ declare module "@mui/material/styles/createTheme" {
     sidebar: SideBar
     body: Body
     footer: Footer
+    particle: Particle
   }
   // allow configuration using `createMuiTheme`
   export interface ThemeOptions {
@@ -22,5 +25,6 @@ declare module "@mui/material/styles/createTheme" {
     sidebar?: SideBarOptions
     body?: BodyOptions
     footer?: FooterOptions
+    particle?: ParticleOptions
   }
 }

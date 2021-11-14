@@ -6,6 +6,7 @@ export interface ThemeOptions extends MuiThemeOptions {
   sidebar?: SideBar
   body?: Body
   footer?: Footer
+  particle?: Particle
 }
 
 export interface Header {
@@ -26,35 +27,11 @@ export interface SideBar {
 
 export type SideBarOptions = Partial<SideBar>
 
-export interface FilterBar {
-  width: React.CSSProperties["width"]
-  background: React.CSSProperties["background"]
-  footer: {
-    color: React.CSSProperties["color"]
-    background: React.CSSProperties["color"]
-  }
-}
-
-export type FilterBarOptions = Partial<FilterBar>
-
 export interface Body {
   background: React.CSSProperties["background"]
 }
 
 export type BodyOptions = Partial<Body>
-
-export interface CalendarEventColor {
-  main: React.CSSProperties["color"]
-  disabled: React.CSSProperties["color"]
-}
-
-export interface Calendar {
-  interestedEventColor: CalendarEventColor
-  registeredEventColor: CalendarEventColor
-  personalEventColor: CalendarEventColor
-}
-
-export type CalendarOptions = Partial<Calendar>
 
 export interface Footer {
   background: React.CSSProperties["background"]
@@ -62,3 +39,10 @@ export interface Footer {
 }
 
 export type FooterOptions = Partial<Footer>
+
+export interface Particle {
+  nodecolor: React.CSSProperties["color"]
+  linkcolor: React.CSSProperties["color"]
+}
+
+export type ParticleOptions = Partial<Particle>

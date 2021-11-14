@@ -3,8 +3,7 @@ import { styled } from "@mui/material/styles"
 import { Toolbar as MuiToolbar } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import Header from "components/Header"
-import Sidebar from "components/Sidebar"
-import Footer from "components/Footer"
+import { FloatingSidebar } from "components/Sidebar"
 
 const Root = styled("div")({
   display: "flex",
@@ -42,11 +41,10 @@ export default function MainLayoutView(props: MainLayoutProps) {
     <Root>
       <CssBaseline />
       <Header />
-      <Sidebar />
+      <FloatingSidebar />
       <MainContent>
         <Toolbar />
         <Page>{children}</Page>
-        <Footer />
       </MainContent>
     </Root>
   )
