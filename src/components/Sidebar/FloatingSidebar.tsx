@@ -21,8 +21,6 @@ export default function TemporaryDrawer() {
 
   const isOpen = useSelector(selectOpenSideBar)
 
-  console.log(isOpen)
-
   const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === "keydown" &&
