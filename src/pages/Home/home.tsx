@@ -8,16 +8,10 @@ import { getDarkParticlesOptions } from "./darkParticles"
 import { useTheme } from "@mui/material/styles"
 
 const Details = styled("div")(() => ({
-  display: "flex",
-  alignContent: "center",
-  alignItems: "center",
-  justifyContent: "center",
   margin: "auto",
-  flex: 1,
-  flexDirection: "column",
-  minHeight: "100%",
-  minWidth: "100%",
-  overflow: "hidden",
+  alignContent: "center",
+  minHeight: "100vh",
+  width: "100vw",
   position: "fixed",
 }))
 

@@ -1,9 +1,8 @@
-const webpack = require("webpack")
 const path = require("path")
+const webpack = require("webpack")
+const DotenvWebpackPlugin = require("dotenv-webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
-const DotenvWebpackPlugin = require("dotenv-webpack")
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin")
 
 const config = {
@@ -11,6 +10,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, "..", "build"),
     filename: "bundle.js",
+    clean: true,
   },
   module: {
     rules: [
@@ -47,6 +47,9 @@ const config = {
   resolve: {
     extensions: [".js", ".jsx", ".tsx", ".ts"],
     modules: ["node_modules", path.resolve(__dirname, "..", "src")],
+    alias: {
+      "@mui/styled-engine": "@mui/styled-engine-sc",
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -60,7 +63,6 @@ const config = {
       template: "./public/404.html",
     }),
     new MiniCssExtractPlugin(),
-    new CleanWebpackPlugin(),
     new DotenvWebpackPlugin({
       path: "config/.env",
     }),

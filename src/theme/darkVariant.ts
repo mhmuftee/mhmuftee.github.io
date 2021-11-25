@@ -9,8 +9,8 @@ export const darkVariant: ThemeOptions = {
       contrastText: "#FFF",
     },
     secondary: {
-      main: "#E4F6F8", // "#9c27b0",
-      light: "#E4F6F8", // "#D4A2DD",
+      main: "#E4F6F8",
+      light: "#E4F6F8",
       contrastText: "#FFF",
     },
   },
@@ -25,14 +25,14 @@ export const darkVariant: ThemeOptions = {
   },
   sidebar: {
     width: 210,
-    background: "#2D333B",
+    background: "#545d68",
     footer: {
       color: "#FBE8A6",
       background: "#62757f",
     },
   },
   body: {
-    background: "#22272E",
+    background: "#042f66",
   },
   footer: {
     background: "#d3ffff",

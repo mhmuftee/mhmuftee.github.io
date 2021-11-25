@@ -22,8 +22,8 @@ const ItemComponent = (props: NavItemProps) => {
       placement="right-end"
     >
       <ListItem button component={NavLink} to={href} selected={active}>
-        <ListItemIcon>
-          <Icon />
+        <ListItemIcon color="secondary">
+          <Icon color="secondary" />
         </ListItemIcon>
         <ListItemText primary={text} />
       </ListItem>

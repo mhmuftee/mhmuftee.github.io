@@ -15,45 +15,64 @@ const Filler = styled("div")({
   flexGrow: 1,
 })
 
+interface AppBarProps extends MuiAppBarProps {
+  issidebaropen: boolean
+  istransparent: boolean
+}
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-})<MuiAppBarProps>(({ theme, color }) => ({
-  color: color === "transparent" ? color : "default",
-  background: color === "transparent" ? "default" : theme.header.background,
+})<AppBarProps>(({ theme, issidebaropen, istransparent }) => ({
+  background: theme.header.background,
   minHeight: theme.header.height,
   padding: "0 !important",
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(issidebaropen && {
+    width: `calc(100% - ${theme.sidebar.width}px)`,
+    marginLeft: `${theme.sidebar.width}px`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+  ...(istransparent && {
+    background: "transparent",
+  }),
 }))
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.header.height,
 }))
 
-type HeaderProps = {
-  transparent: Boolean
-}
-
-const HeaderComponent = (props: HeaderProps) => {
+const HeaderComponent = (props: AppBarProps) => {
   const dispatch = useAppDispatch()
-  const { transparent } = props
+  const { istransparent, issidebaropen } = props
   const themeMode = useAppSelector(selectThemeMode)
 
   const Themeicon = themeMode === "dark" ? Day : Night
 
   const handleChangeTheme = () => {
-    if (themeMode === "dark") dispatch(changeTheme("light"))
-    if (themeMode === "light") dispatch(changeTheme("dark"))
+    const mode = themeMode === "dark" ? "light" : "dark"
+    dispatch(changeTheme(mode))
   }
-
-  const headerColor = transparent ? "transparent" : "default"
 
   return (
     <>
-      <AppBar position="fixed" elevation={0} color={headerColor}>
+      <AppBar
+        position="fixed"
+        elevation={0}
+        issidebaropen={issidebaropen}
+        istransparent={istransparent}
+      >
         <Toolbar>
           <IconButton
             edge="start"
             color="secondary"
             aria-label="open drawer"
+            sx={{ mr: 2, ...(issidebaropen && { display: "none" }) }}
             onClick={() => dispatch(openSideBar())}
           >
             <Menu />
@@ -75,10 +94,6 @@ const HeaderComponent = (props: HeaderProps) => {
       </AppBar>
     </>
   )
-}
-
-HeaderComponent.defaultProps = {
-  transparent: false,
 }
 
 export default HeaderComponent

@@ -4,6 +4,12 @@ import { ThemeOptions } from "./types"
 export const lightVariant: ThemeOptions = {
   palette: {
     mode: "light",
+    primary: {
+      main: "#042f66",
+    },
+    secondary: {
+      main: "#042f66",
+    },
   },
   typography: {
     button: {
@@ -12,11 +18,11 @@ export const lightVariant: ThemeOptions = {
   },
   header: {
     height: 70,
-    background: "#F332df",
+    background: "#1E3F66",
   },
   sidebar: {
     width: 210,
-    background: "#2D333B",
+    background: "#1E3F66",
     footer: {
       color: "#FBE8A6",
       background: "#62757f",

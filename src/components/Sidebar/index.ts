@@ -1,4 +1,3 @@
-import Sidebar from "./Sidebar"
-import FloatingSidebar from "./FloatingSidebar"
+import Sidebar from "./Sidebar2"
 
-export { Sidebar, FloatingSidebar }
+export default Sidebar
