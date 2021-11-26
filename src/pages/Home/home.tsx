@@ -10,8 +10,8 @@ import { useTheme } from "@mui/material/styles"
 const Details = styled("div")(() => ({
   margin: "auto",
   alignContent: "center",
-  minHeight: "100vh",
-  width: "100vw",
+  minHeight: "100%",
+  width: "100%",
   position: "fixed",
 }))
 

@@ -61,39 +61,37 @@ const HeaderComponent = (props: AppBarProps) => {
   }
 
   return (
-    <>
-      <AppBar
-        position="fixed"
-        elevation={0}
-        issidebaropen={issidebaropen}
-        istransparent={istransparent}
-      >
-        <Toolbar>
+    <AppBar
+      position="fixed"
+      elevation={0}
+      issidebaropen={issidebaropen}
+      istransparent={istransparent}
+    >
+      <Toolbar>
+        <IconButton
+          edge="start"
+          color="secondary"
+          aria-label="open drawer"
+          sx={{ mr: 2, ...(issidebaropen && { display: "none" }) }}
+          onClick={() => dispatch(openSideBar())}
+        >
+          <Menu />
+        </IconButton>
+        <Filler />
+        <Tooltip title="change theme" aria-label="change theme">
           <IconButton
-            edge="start"
+            edge="end"
+            aria-label="change theme"
+            aria-haspopup="true"
             color="secondary"
-            aria-label="open drawer"
-            sx={{ mr: 2, ...(issidebaropen && { display: "none" }) }}
-            onClick={() => dispatch(openSideBar())}
+            id="mode"
+            onClick={handleChangeTheme}
           >
-            <Menu />
+            <Themeicon />
           </IconButton>
-          <Filler />
-          <Tooltip title="change theme" aria-label="change theme">
-            <IconButton
-              edge="end"
-              aria-label="change theme"
-              aria-haspopup="true"
-              color="secondary"
-              id="mode"
-              onClick={handleChangeTheme}
-            >
-              <Themeicon />
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
-      </AppBar>
-    </>
+        </Tooltip>
+      </Toolbar>
+    </AppBar>
   )
 }
 
