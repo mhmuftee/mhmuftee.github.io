@@ -21,7 +21,8 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) =>
+    prop !== "issidebaropen" && prop !== "istransparent",
 })<AppBarProps>(({ theme, issidebaropen, istransparent }) => ({
   background: theme.header.background,
   minHeight: theme.header.height,
