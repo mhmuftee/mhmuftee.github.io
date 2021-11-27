@@ -1,11 +1,6 @@
-import React, { FunctionComponent as FC } from "react"
-import { PropsWithChildren } from "react"
+import React from "react"
 import { styled } from "@mui/material/styles"
-import {
-  CssBaseline,
-  Box as MuiBox,
-  Toolbar as MuiToolbar,
-} from "@mui/material"
+import { Box as MuiBox, Toolbar as MuiToolbar } from "@mui/material"
 
 import { useAppSelector } from "redux/hooks"
 import Header from "components/Header"
@@ -20,6 +15,7 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
 
 const Root = styled(MuiBox)({
   display: "flex",
+  height: "100%",
 })
 
 const Page = styled(MuiBox)(({ theme }) => ({
@@ -35,7 +31,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   flexGrow: 1,
   display: "flex",
   flexDirection: "column",
-  minHeight: "100vh",
+  height: "100%",
   background: theme.footer.background,
   marginLeft: `-${theme.sidebar.width}px`,
   transition: theme.transitions.create("margin", {
@@ -51,7 +47,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   }),
 }))
 
-type MainLayoutProps = PropsWithChildren<{}>
+type MainLayoutProps = React.PropsWithChildren<{}>
 
 const Layout = (props: MainLayoutProps) => {
   const isSidebarOpen = useAppSelector(selectOpenSideBar)
@@ -64,7 +60,6 @@ const Layout = (props: MainLayoutProps) => {
 
   return (
     <Root>
-      <CssBaseline />
       <Header istransparent={isHomePage} issidebaropen={isSidebarOpen} />
       <Sidebar istransparent={isHomePage} open={isSidebarOpen} />
       <Main open={isSidebarOpen}>
@@ -77,4 +72,4 @@ const Layout = (props: MainLayoutProps) => {
 
 export default Layout
 
-export type MainLayoutType = FC<MainLayoutProps>
+export type MainLayoutType = React.FC<MainLayoutProps>

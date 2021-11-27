@@ -1,19 +1,20 @@
 import React from "react"
 import { CssBaseline } from "@mui/material"
 import { BrowserRouter as Router } from "react-router-dom"
-import { StylesProvider } from "@mui/styles"
 import Routes from "routes"
-import ThemeProvider from "theme/ThemeProvider"
+import { ThemeProvider } from "theme"
+import { Provider } from "react-redux"
+import { store } from "redux/store"
 
 const App = () => (
-  <StylesProvider injectFirst>
+  <Provider store={store}>
     <ThemeProvider>
-      <CssBaseline />
+      <CssBaseline enableColorScheme />
       <Router>
         <Routes />
       </Router>
     </ThemeProvider>
-  </StylesProvider>
+  </Provider>
 )
 
 export default App

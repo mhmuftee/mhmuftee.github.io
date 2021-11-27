@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "redux/store"
+import { ThemeMode } from "types"
 
 export interface UIState {
-  themeMode: string
+  themeMode: ThemeMode
   openSidebar: boolean
 }
 
 const initialState: UIState = {
-  themeMode: "dark",
+  themeMode: "light",
   openSidebar: false,
 }
 
@@ -15,7 +16,7 @@ export const sidebarSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    changeTheme: (state, action: PayloadAction<string>) => {
+    changeTheme: (state, action: PayloadAction<ThemeMode>) => {
       state.themeMode = action.payload
     },
     openSideBar: (state) => {
