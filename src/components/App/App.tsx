@@ -6,16 +6,14 @@ import Routes from "routes"
 import ThemeProvider from "theme/ThemeProvider"
 
 const App = () => (
-  <>
-    <StylesProvider injectFirst>
-      <ThemeProvider>
-        <CssBaseline />
-        <Router>
-          <Routes />
-        </Router>
-      </ThemeProvider>
-    </StylesProvider>
-  </>
+  <StylesProvider injectFirst>
+    <ThemeProvider>
+      <CssBaseline />
+      <Router>
+        <Routes />
+      </Router>
+    </ThemeProvider>
+  </StylesProvider>
 )
 
 export default App
