@@ -47,13 +47,6 @@
     "deploy": "gh-pages -d build",
     "clean": "rm -r build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react",
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",

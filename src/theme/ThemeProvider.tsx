@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { useMediaQuery } from "@mui/material"
 import { useAppSelector, useAppDispatch } from "redux/hooks"
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles"
