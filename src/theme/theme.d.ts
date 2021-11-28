@@ -1,22 +1,12 @@
-import { Measurements, MeasurementsOptions } from "./types"
-
-declare module "@mui/material/styles/createTheme" {
-  export interface Theme {
-    measurements: Measurements
-  }
-  // allow configuration using `createMuiTheme`
-  export interface ThemeOptions {
-    measurements?: MeasurementsOptions
-  }
-}
+import { Measurements, ExtendedPalette } from "types"
 
 declare module "@mui/material/styles" {
-  interface Palette {
-    nodecolor: React.CSSProperties["color"]
-    linkcolor: React.CSSProperties["color"]
+  interface Theme {
+    measurements: Measurements
   }
-  interface PaletteOptions {
-    nodecolor: React.CSSProperties["color"]
-    linkcolor: React.CSSProperties["color"]
+  interface ThemeOptions {
+    measurements?: Partial<Measurements>
   }
+  interface Palette extends ExtendedPalette {}
+  interface PaletteOptions extends Partial<ExtendedPalette> {}
 }

@@ -4,12 +4,28 @@ import { useAppDispatch, useAppSelector } from "redux/hooks"
 import {
   ThemeProvider as MuiThemeProvider,
   responsiveFontSizes,
+  createTheme as createMuiTheme,
 } from "@mui/material/styles"
-import { darkThemeMode, lightThemeMode } from "types"
+import { darkThemeMode, lightThemeMode, ThemeMode } from "types"
 
 import { changeTheme, selectThemeMode } from "redux/reducers/ui/uiSlice"
 
-import { createTheme } from "./createTheme"
+import { darkPalette } from "./PalellteDark"
+import { lightPalette } from "./PaletteLight"
+
+const createTheme = (mode: ThemeMode) =>
+  createMuiTheme({
+    palette: mode === "dark" ? darkPalette : lightPalette,
+    typography: {
+      button: {
+        textTransform: "none",
+      },
+    },
+    measurements: {
+      appbarheight: 70,
+      sidebarwidth: 210,
+    },
+  })
 
 const ThemeProvider = (props: React.PropsWithChildren<{}>) => {
   const { children } = props
@@ -29,8 +45,6 @@ const ThemeProvider = (props: React.PropsWithChildren<{}>) => {
     () => responsiveFontSizes(createTheme(themeMode)),
     [themeMode]
   )
-
-  //console.log(JSON.stringify(theme.palette, null, 2))
 
   return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
 }
