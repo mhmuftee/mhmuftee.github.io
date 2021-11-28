@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom"
 import { selectOpenSideBar } from "redux/reducers/ui/uiSlice"
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
-  minHeight: theme.header.height,
+  minHeight: theme.measurements.appbarheight,
 }))
 
 const Root = styled(MuiBox)({
@@ -21,7 +21,7 @@ const Root = styled(MuiBox)({
 const Page = styled(MuiBox)(({ theme }) => ({
   flexGrow: 1,
   height: "100%",
-  background: theme.body.background,
+  //background: theme.body.background,
   margin: theme.spacing(2),
 }))
 
@@ -32,8 +32,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   display: "flex",
   flexDirection: "column",
   height: "100%",
-  background: theme.footer.background,
-  marginLeft: `-${theme.sidebar.width}px`,
+  //background: theme.footer.background,
+  marginLeft: `-${200}px`,
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,

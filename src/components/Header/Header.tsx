@@ -24,16 +24,16 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) =>
     prop !== "issidebaropen" && prop !== "istransparent",
 })<AppBarProps>(({ theme, issidebaropen, istransparent }) => ({
-  background: theme.header.background,
-  minHeight: theme.header.height,
+  //background: theme.header.background,
+  minHeight: theme.measurements.appbarheight,
   padding: "0 !important",
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(issidebaropen && {
-    width: `calc(100% - ${theme.sidebar.width}px)`,
-    marginLeft: `${theme.sidebar.width}px`,
+    width: `calc(100% - ${theme.measurements.sidebarwidth}px)`,
+    marginLeft: `${theme.measurements.sidebarwidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -45,7 +45,7 @@ const AppBar = styled(MuiAppBar, {
 }))
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
-  minHeight: theme.header.height,
+  minHeight: theme.measurements.appbarheight,
 }))
 
 const HeaderComponent = (props: AppBarProps) => {

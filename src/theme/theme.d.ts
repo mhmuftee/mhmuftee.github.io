@@ -1,30 +1,22 @@
-import {
-  Header,
-  HeaderOptions,
-  SideBar,
-  SideBarOptions,
-  Body,
-  BodyOptions,
-  Footer,
-  FooterOptions,
-  Particle,
-  ParticleOptions,
-} from "./types"
+import { Measurements, MeasurementsOptions } from "./types"
 
 declare module "@mui/material/styles/createTheme" {
   export interface Theme {
-    header: Header
-    sidebar: SideBar
-    body: Body
-    footer: Footer
-    particle: Particle
+    measurements: Measurements
   }
   // allow configuration using `createMuiTheme`
   export interface ThemeOptions {
-    header?: HeaderOptions
-    sidebar?: SideBarOptions
-    body?: BodyOptions
-    footer?: FooterOptions
-    particle?: ParticleOptions
+    measurements?: MeasurementsOptions
+  }
+}
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    nodecolor: React.CSSProperties["color"]
+    linkcolor: React.CSSProperties["color"]
+  }
+  interface PaletteOptions {
+    nodecolor: React.CSSProperties["color"]
+    linkcolor: React.CSSProperties["color"]
   }
 }

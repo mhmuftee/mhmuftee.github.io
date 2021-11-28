@@ -3,7 +3,7 @@ import { Theme } from "@mui/material/styles"
 export const getParticlesOptions = (theme: Theme) => ({
   background: {
     color: {
-      value: theme.body.background,
+      value: theme.palette.background,
     },
   },
   fpsLimit: 120,
@@ -37,10 +37,10 @@ export const getParticlesOptions = (theme: Theme) => ({
   },
   particles: {
     color: {
-      value: theme.particle.nodecolor,
+      value: theme.palette.nodecolor,
     },
     links: {
-      color: theme.particle.linkcolor,
+      color: theme.palette.linkcolor,
       distance: 150,
       enable: true,
       opacity: 0.5,
