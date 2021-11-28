@@ -1,7 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit"
 // import { persistReducer } from "redux-persist"
 // import storage from "redux-persist/lib/storage"
-import uiReducer from "./ui/uiSlice"
+import uiReducer from "./ui/slice"
 
 /**
 const uiPersistConfig = {

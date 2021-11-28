@@ -7,7 +7,7 @@ import Header from "components/Header"
 import Sidebar from "components/Sidebar"
 import { useLocation } from "react-router-dom"
 
-import { selectOpenSideBar } from "redux/reducers/ui/uiSlice"
+import { selectOpenSideBar } from "redux/reducers/ui/slice"
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.measurements.appbarheight,

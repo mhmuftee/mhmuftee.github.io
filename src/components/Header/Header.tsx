@@ -1,14 +1,20 @@
 import React from "react"
 import { styled } from "@mui/material/styles"
-import { Toolbar as MuiToolbar, IconButton } from "@mui/material"
+import {
+  Toolbar as MuiToolbar,
+  IconButton,
+  useMediaQuery,
+  Theme,
+} from "@mui/material"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import { Menu, Moon as Night, Sun as Day } from "react-feather"
 import { useAppDispatch, useAppSelector } from "redux/hooks"
 import {
   openSideBar,
+  openMobileMenu,
   changeTheme,
   selectThemeMode,
-} from "redux/reducers/ui/uiSlice"
+} from "redux/reducers/ui/slice"
 import Tooltip from "components/Tooltip"
 
 const Filler = styled("div")({
@@ -60,6 +66,14 @@ const HeaderComponent = (props: AppBarProps) => {
     dispatch(changeTheme(mode))
   }
 
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  )
+
+  const onClickMenu = isSmallScreen ? openMobileMenu : openSideBar
+
+  const handleClickMenu = () => dispatch(onClickMenu())
+
   return (
     <AppBar
       position="fixed"
@@ -73,7 +87,7 @@ const HeaderComponent = (props: AppBarProps) => {
           color="secondary"
           aria-label="open drawer"
           sx={{ mr: 2, ...(issidebaropen && { display: "none" }) }}
-          onClick={() => dispatch(openSideBar())}
+          onClick={handleClickMenu}
         >
           <Menu />
         </IconButton>

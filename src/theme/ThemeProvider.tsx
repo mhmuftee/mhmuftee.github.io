@@ -8,7 +8,7 @@ import {
 } from "@mui/material/styles"
 import { darkThemeMode, lightThemeMode, ThemeMode } from "types"
 
-import { changeTheme, selectThemeMode } from "redux/reducers/ui/uiSlice"
+import { changeTheme, selectThemeMode } from "redux/reducers/ui/slice"
 
 import { darkPalette } from "./PalellteDark"
 import { lightPalette } from "./PaletteLight"
