@@ -24,17 +24,10 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-console": "warn",
-        "no-param-reassign": "off",
-        "react/no-children-prop": "off",
-        "react/jsx-props-no-spreading": "off"
     },
     "settings": {
         "react": {
             "version": "detect"
         }
-    },
-    "ignorePatterns": [
-        "webpack*.js"
-    ]
+    }
 }
