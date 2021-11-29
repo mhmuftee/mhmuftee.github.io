@@ -1,12 +1,11 @@
 import React from "react"
-import { styled } from "@mui/material/styles"
-import { Box as MuiBox, Toolbar as MuiToolbar } from "@mui/material"
 
-import { useAppSelector } from "redux/hooks"
+import { Box as MuiBox, Toolbar as MuiToolbar } from "@mui/material"
+import { styled } from "@mui/material/styles"
 import Header from "components/Header"
 import Sidebar from "components/Sidebar"
 import { useLocation } from "react-router-dom"
-
+import { useAppSelector } from "redux/hooks"
 import { selectOpenSideBar } from "redux/reducers/ui/slice"
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({

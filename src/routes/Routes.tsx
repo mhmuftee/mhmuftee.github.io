@@ -1,6 +1,7 @@
 import React from "react"
-import { Route, Routes } from "react-router-dom"
+
 import { MainLayout, MainLayoutType, Pages, PageDataType } from "pages"
+import { Route, Routes } from "react-router-dom"
 
 const childRoutes = (Layout: MainLayoutType, routes: PageDataType[]) =>
   routes.map(({ id, path, Component }) => (

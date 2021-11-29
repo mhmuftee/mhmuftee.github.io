@@ -1,11 +1,13 @@
 import React from "react"
+
+import { Typography } from "@mui/material"
+import { styled } from "@mui/material/styles"
+import { useTheme } from "@mui/material/styles"
 import Particles from "react-tsparticles"
 import { ISourceOptions } from "tsparticles"
-import { styled } from "@mui/material/styles"
-import { Typography } from "@mui/material"
-import { getParticlesOptions } from "./particles"
+
 import { getDarkParticlesOptions } from "./darkParticles"
-import { useTheme } from "@mui/material/styles"
+import { getParticlesOptions } from "./particles"
 
 const Details = styled("div")(() => ({
   margin: "auto",

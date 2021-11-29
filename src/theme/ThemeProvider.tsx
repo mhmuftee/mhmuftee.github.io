@@ -1,14 +1,14 @@
 import React from "react"
+
 import { useMediaQuery } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "redux/hooks"
 import {
   ThemeProvider as MuiThemeProvider,
   responsiveFontSizes,
   createTheme as createMuiTheme,
 } from "@mui/material/styles"
-import { darkThemeMode, lightThemeMode, ThemeMode } from "types"
-
+import { useAppDispatch, useAppSelector } from "redux/hooks"
 import { changeTheme, selectThemeMode } from "redux/reducers/ui/slice"
+import { darkThemeMode, lightThemeMode, ThemeMode } from "types"
 
 import { darkPalette } from "./PalellteDark"
 import { lightPalette } from "./PaletteLight"

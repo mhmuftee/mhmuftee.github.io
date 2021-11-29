@@ -1,10 +1,11 @@
 import { FunctionComponent, ReactNode } from "react"
-import { SvgIcon } from "@mui/material"
-import { Home, Info as AboutIcon } from "@mui/icons-material"
 
-import MainLayout, { MainLayoutType } from "./Layout"
-import Homecomponent from "./Home"
+import { Home, Info as AboutIcon } from "@mui/icons-material"
+import { SvgIcon } from "@mui/material"
+
 import Aboutcomponent from "./about"
+import Homecomponent from "./Home"
+import MainLayout, { MainLayoutType } from "./Layout"
 
 type Page = {
   id: string

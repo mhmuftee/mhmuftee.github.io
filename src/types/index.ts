@@ -1,4 +1,5 @@
 import React from "react"
+
 import { PaletteMode as ThemeMode } from "@mui/material"
 
 export const darkThemeMode: ThemeMode = "dark"
