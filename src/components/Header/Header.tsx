@@ -1,5 +1,5 @@
 import React from "react"
-import { styled } from "@mui/material/styles"
+
 import {
   Toolbar as MuiToolbar,
   IconButton,
@@ -7,6 +7,8 @@ import {
   Theme,
 } from "@mui/material"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
+import { styled } from "@mui/material/styles"
+import Tooltip from "components/Tooltip"
 import { Menu, Moon as Night, Sun as Day } from "react-feather"
 import { useAppDispatch, useAppSelector } from "redux/hooks"
 import {
@@ -15,7 +17,6 @@ import {
   changeTheme,
   selectThemeMode,
 } from "redux/reducers/ui/slice"
-import Tooltip from "components/Tooltip"
 
 const Filler = styled("div")({
   flexGrow: 1,

@@ -1,13 +1,15 @@
 import React from "react"
-import { styled } from "@mui/material/styles"
+
 import { Divider, Hidden, IconButton, List, useTheme } from "@mui/material"
 import Drawer, { DrawerProps } from "@mui/material/Drawer"
+import { styled } from "@mui/material/styles"
 import { Pages } from "pages"
 import { ChevronsLeft, ChevronsRight } from "react-feather"
 import { useAppDispatch } from "redux/hooks"
 import { closeSideBar } from "redux/reducers/ui/slice"
-import SidebarItem from "./SidebarItem"
+
 import MobileMenu from "./MobileMenu"
+import SidebarItem from "./SidebarItem"
 
 interface SidebarProps extends DrawerProps {
   open: boolean
