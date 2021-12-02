@@ -17,6 +17,7 @@ const createTheme = (mode: ThemeMode) =>
   createMuiTheme({
     palette: mode === "dark" ? darkPalette : lightPalette,
     typography: {
+      fontFamily: ["Nunito Sans", "Nunito"].join(","),
       button: {
         textTransform: "none",
       },
