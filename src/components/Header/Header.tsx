@@ -1,20 +1,21 @@
 import React from "react"
 
-import {
-  Toolbar as MuiToolbar,
-  IconButton,
-  useMediaQuery,
-  Theme,
-} from "@mui/material"
+import { Toolbar as MuiToolbar, IconButton } from "@mui/material"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import { styled } from "@mui/material/styles"
 import Tooltip from "components/Tooltip"
-import { Menu, Moon as Night, Sun as Day } from "react-feather"
+import {
+  AlignLeft as Menu,
+  Moon as Night,
+  Sun as Day,
+  X as Close,
+} from "react-feather"
 import { useAppDispatch, useAppSelector } from "redux/hooks"
 import {
-  openSideBar,
-  openMobileMenu,
+  openMenu,
+  closeMenu,
   changeTheme,
+  selectOpenMenu,
   selectThemeMode,
 } from "redux/reducers/ui/slice"
 
@@ -23,30 +24,17 @@ const Filler = styled("div")({
 })
 
 interface AppBarProps extends MuiAppBarProps {
-  issidebaropen: boolean
-  istransparent: boolean
+  ishomepage: boolean
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) =>
-    prop !== "issidebaropen" && prop !== "istransparent",
-})<AppBarProps>(({ theme, issidebaropen, istransparent }) => ({
-  //background: theme.header.background,
+  shouldForwardProp: (prop) => prop !== "ishomepage",
+})<AppBarProps>(({ theme, ishomepage }) => ({
+  background: theme.palette.background.header,
   minHeight: theme.measurements.appbarheight,
   padding: "0 !important",
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(issidebaropen && {
-    width: `calc(100% - ${theme.measurements.sidebarwidth}px)`,
-    marginLeft: `${theme.measurements.sidebarwidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-  ...(istransparent && {
+  zIndex: theme.zIndex.drawer + 1,
+  ...(ishomepage && {
     background: "transparent",
   }),
 }))
@@ -57,8 +45,9 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
 
 const HeaderComponent = (props: AppBarProps) => {
   const dispatch = useAppDispatch()
-  const { istransparent, issidebaropen } = props
+  const { ishomepage } = props
   const themeMode = useAppSelector(selectThemeMode)
+  const open = useAppSelector(selectOpenMenu)
 
   const Themeicon = themeMode === "dark" ? Day : Night
 
@@ -67,30 +56,22 @@ const HeaderComponent = (props: AppBarProps) => {
     dispatch(changeTheme(mode))
   }
 
-  const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("sm")
-  )
-
-  const onClickMenu = isSmallScreen ? openMobileMenu : openSideBar
-
-  const handleClickMenu = () => dispatch(onClickMenu())
+  const handleClick = () => {
+    const func = open ? closeMenu : openMenu
+    dispatch(func())
+  }
 
   return (
-    <AppBar
-      position="fixed"
-      elevation={0}
-      issidebaropen={issidebaropen}
-      istransparent={istransparent}
-    >
+    <AppBar position="fixed" elevation={0} ishomepage={ishomepage}>
       <Toolbar>
         <IconButton
           edge="start"
-          color="secondary"
+          color="primary"
           aria-label="open drawer"
-          sx={{ mr: 2, ...(issidebaropen && { display: "none" }) }}
-          onClick={handleClickMenu}
+          sx={{ ...(!ishomepage && { display: "none" }) }}
+          onClick={handleClick}
         >
-          <Menu />
+          {open ? <Close /> : <Menu />}
         </IconButton>
         <Filler />
         <Tooltip title="change theme" aria-label="change theme">
@@ -98,7 +79,7 @@ const HeaderComponent = (props: AppBarProps) => {
             edge="end"
             aria-label="change theme"
             aria-haspopup="true"
-            color="secondary"
+            color="primary"
             id="mode"
             onClick={handleChangeTheme}
           >

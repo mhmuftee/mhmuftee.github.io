@@ -3,7 +3,7 @@ import { Theme } from "@mui/material"
 export const getDarkParticlesOptions = (theme: Theme) => ({
   background: {
     color: {
-      value: "#000000",
+      value: theme.palette.background.body,
     },
     position: "50% 50%",
     repeat: "no-repeat",
@@ -36,6 +36,7 @@ export const getDarkParticlesOptions = (theme: Theme) => ({
   },
   particles: {
     color: {
+      value: theme.palette.nodecolor,
       animation: {
         h: {
           speed: 20,

@@ -1,4 +1,8 @@
-import { Measurements, ExtendedPalette } from "types"
+import { Measurements, ExtendedPalette, ExtendedBackground } from "types"
+
+declare module "@mui/material/styles/createPalette" {
+  interface TypeBackground extends ExtendedBackground {}
+}
 
 declare module "@mui/material/styles" {
   interface Theme {

@@ -23,7 +23,7 @@ const createTheme = (mode: ThemeMode) =>
     },
     measurements: {
       appbarheight: 70,
-      sidebarwidth: 210,
+      sidebarwidth: 180,
     },
   })
 

@@ -5,13 +5,13 @@ import { ThemeMode } from "types"
 export interface UIState {
   themeMode: ThemeMode
   openSidebar: boolean
-  openMobileMenu: boolean
+  openMenu: boolean
 }
 
 const initialState: UIState = {
   themeMode: "light",
   openSidebar: false,
-  openMobileMenu: false,
+  openMenu: false,
 }
 
 export const uiSlice = createSlice({
@@ -27,26 +27,20 @@ export const uiSlice = createSlice({
     closeSideBar: (state) => {
       state.openSidebar = false
     },
-    openMobileMenu: (state) => {
-      state.openMobileMenu = true
+    openMenu: (state) => {
+      state.openMenu = true
     },
-    closeMobileMenu: (state) => {
-      state.openMobileMenu = false
+    closeMenu: (state) => {
+      state.openMenu = false
     },
   },
 })
 
 export const selectThemeMode = (state: RootState) => state.ui.themeMode
 export const selectOpenSideBar = (state: RootState) => state.ui.openSidebar
-export const selectOpenMobileMenu = (state: RootState) =>
-  state.ui.openMobileMenu
+export const selectOpenMenu = (state: RootState) => state.ui.openMenu
 
-export const {
-  changeTheme,
-  openSideBar,
-  closeSideBar,
-  openMobileMenu,
-  closeMobileMenu,
-} = uiSlice.actions
+export const { changeTheme, openSideBar, closeSideBar, openMenu, closeMenu } =
+  uiSlice.actions
 
 export default uiSlice.reducer

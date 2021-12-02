@@ -20,7 +20,7 @@ const Root = styled(MuiBox)({
 const Page = styled(MuiBox)(({ theme }) => ({
   flexGrow: 1,
   height: "100%",
-  //background: theme.body.background,
+  background: theme.palette.background.paper,
   margin: theme.spacing(2),
 }))
 
@@ -31,8 +31,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   display: "flex",
   flexDirection: "column",
   height: "100%",
-  //background: theme.footer.background,
-  marginLeft: `-${200}px`,
+  background: theme.palette.background.body,
+  marginLeft: `-${theme.measurements.sidebarwidth}px`,
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -59,8 +59,8 @@ const Layout = (props: MainLayoutProps) => {
 
   return (
     <Root>
-      <Header istransparent={isHomePage} issidebaropen={isSidebarOpen} />
-      <Sidebar istransparent={isHomePage} open={isSidebarOpen} />
+      <Header ishomepage={isHomePage} />
+      <Sidebar ishomepage={isHomePage} open={isSidebarOpen} />
       <Main open={isSidebarOpen}>
         <Toolbar />
         <Page>{children}</Page>

@@ -1,19 +1,18 @@
 import React from "react"
 
-import { Divider, Hidden, IconButton, List, useTheme } from "@mui/material"
+import { Hidden, List, useTheme } from "@mui/material"
 import Drawer, { DrawerProps } from "@mui/material/Drawer"
 import { styled } from "@mui/material/styles"
 import { Pages } from "pages"
-import { ChevronsLeft, ChevronsRight } from "react-feather"
 import { useAppDispatch } from "redux/hooks"
-import { closeSideBar } from "redux/reducers/ui/slice"
+import { closeSideBar, openSideBar } from "redux/reducers/ui/slice"
 
 import MobileMenu from "./MobileMenu"
 import SidebarItem from "./SidebarItem"
 
 interface SidebarProps extends DrawerProps {
   open: boolean
-  istransparent: boolean
+  ishomepage: boolean
 }
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -26,13 +25,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }))
 
 const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
-  const { istransparent, open } = props
+  const { ishomepage, open } = props
   const theme = useTheme()
   const dispatch = useAppDispatch()
 
-  const handleDrawerClose = () => {
-    dispatch(closeSideBar())
-  }
+  React.useEffect(() => {
+    const dispatchfunc = ishomepage ? closeSideBar : openSideBar
+    dispatch(dispatchfunc())
+  }, [dispatch, ishomepage])
 
   return (
     <>
@@ -47,8 +47,8 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
             "& .MuiDrawer-paper": {
               width: theme.measurements.sidebarwidth,
               boxSizing: "border-box",
-              // background: theme.sidebar.background,
-              ...(istransparent && {
+              background: theme.palette.background.sidebar,
+              ...(ishomepage && {
                 background: "transparent",
               }),
             },
@@ -57,12 +57,7 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
           anchor="left"
           open={open}
         >
-          <DrawerHeader>
-            <IconButton color="secondary" onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? <ChevronsLeft /> : <ChevronsRight />}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
+          <DrawerHeader />
           <List>
             {Pages.map(({ path, header, icon }) => (
               <SidebarItem

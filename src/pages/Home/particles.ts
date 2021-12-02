@@ -3,7 +3,7 @@ import { Theme } from "@mui/material/styles"
 export const getParticlesOptions = (theme: Theme) => ({
   background: {
     color: {
-      value: theme.palette.background,
+      value: theme.palette.background.body,
     },
   },
   fpsLimit: 120,
