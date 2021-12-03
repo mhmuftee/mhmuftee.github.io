@@ -1,72 +1,87 @@
 import * as React from "react"
 
 import {
-  AppBar,
   Dialog,
-  useMediaQuery,
-  Theme,
-  Toolbar,
-  IconButton,
+  Paper as MuiPaper,
+  List,
+  ListItem,
+  ListItemButton as MuiListItemButton,
+  ListItemText as MuiListItemText,
 } from "@mui/material"
-import List from "@mui/material/List"
-import Transtion from "components/Transition"
+import { styled } from "@mui/material/styles"
+import Header from "components/Header"
 import { Pages } from "pages"
-import { X as CloseIcon } from "react-feather"
-import { useAppSelector } from "redux/hooks"
-import { useAppDispatch } from "redux/hooks"
-import { selectOpenSideBar } from "redux/reducers/ui/slice"
-import { closeSideBar } from "redux/reducers/ui/slice"
+import { NavLink } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "redux/hooks"
+import {
+  selectOpenMenu,
+  selectSmallScreen,
+  closeMenu,
+} from "redux/reducers/ui/slice"
 
-import SidebarItem from "./SidebarItem"
+const BigPaper = styled(MuiPaper)(({ theme }) => ({
+  background: theme.palette.background.body,
+}))
 
-const SimpleDialog = () => {
+const SmallPaper = styled(MuiPaper)(({ theme }) => ({
+  background: theme.palette.background.body,
+  alignContent: "center",
+  justifyContent: "center",
+}))
+
+const ListItemButton = styled(MuiListItemButton)(({ theme }) => ({
+  padding: 0,
+  borderRadius: theme.spacing(2),
+  "&:hover": {
+    background: theme.palette.primary.main,
+  },
+}))
+
+const ListItemText = styled(MuiListItemText)(({ theme }) => ({
+  margin: theme.spacing(0),
+  padding: theme.spacing(1),
+  color: theme.palette.primary.main,
+  "&:hover": {
+    color: theme.palette.getContrastText(theme.palette.primary.main),
+  },
+}))
+
+const DialogMenu = () => {
   const dispatch = useAppDispatch()
+  const open = useAppSelector(selectOpenMenu)
+  const isSmallScreen = useAppSelector(selectSmallScreen)
 
-  const open = useAppSelector(selectOpenSideBar)
-
-  const fullScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("md")
-  )
+  const Paper = isSmallScreen ? SmallPaper : BigPaper
 
   const handleClose = () => {
-    dispatch(closeSideBar())
+    dispatch(closeMenu())
   }
 
   return (
     <Dialog
       onClose={handleClose}
+      fullScreen={isSmallScreen}
       open={open}
-      fullScreen={fullScreen}
-      TransitionComponent={Transtion}
+      fullWidth={true}
+      maxWidth="md"
+      PaperComponent={Paper}
+      transitionDuration={1000}
     >
-      <AppBar
-        sx={{ position: "relative", background: "transparent" }}
-        elevation={0}
-      >
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={handleClose}
-            aria-label="close"
-          >
-            <CloseIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <List>
-        {Pages.map(({ path, header, icon }) => (
-          <SidebarItem
-            key={path}
-            path={path}
-            text={header}
-            icon={icon}
-            showTooltip={!open}
-          />
+      <Header ishomepage={true} />
+      <List sx={{ p: 2 }}>
+        {Pages.map(({ path, header: text }) => (
+          <ListItem disablePadding component={NavLink} to={path} key={path}>
+            <ListItemButton onClick={handleClose} dense>
+              <ListItemText
+                primary={text}
+                primaryTypographyProps={{ align: "center", variant: "h3" }}
+              />
+            </ListItemButton>
+          </ListItem>
         ))}
       </List>
     </Dialog>
   )
 }
 
-export default SimpleDialog
+export default DialogMenu

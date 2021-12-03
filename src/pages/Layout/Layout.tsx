@@ -3,10 +3,10 @@ import React from "react"
 import { Box as MuiBox, Toolbar as MuiToolbar } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Header from "components/Header"
-import Sidebar from "components/Sidebar"
+import Sidebar, { Menu } from "components/Sidebar"
 import { useLocation } from "react-router-dom"
 import { useAppSelector } from "redux/hooks"
-import { selectOpenSideBar } from "redux/reducers/ui/slice"
+import { selectOpenSideBar, selectSmallScreen } from "redux/reducers/ui/slice"
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.measurements.appbarheight,
@@ -24,25 +24,32 @@ const Page = styled(MuiBox)(({ theme }) => ({
   margin: theme.spacing(2),
 }))
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "issmallscreen",
+})<{
   open?: boolean
-}>(({ theme, open }) => ({
+  issmallscreen?: boolean
+}>(({ theme, open, issmallscreen }) => ({
   flexGrow: 1,
   display: "flex",
   flexDirection: "column",
   height: "100%",
   background: theme.palette.background.body,
-  marginLeft: `-${theme.measurements.sidebarwidth}px`,
+  ...(!issmallscreen && {
+    marginLeft: `-${theme.measurements.sidebarwidth}px`,
+  }),
+  /** 
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
-  }),
+  }), */
   ...(open && {
     marginLeft: 0,
+    /**
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
-    }),
+    }), */
   }),
 }))
 
@@ -50,6 +57,7 @@ type MainLayoutProps = React.PropsWithChildren<{}>
 
 const Layout = (props: MainLayoutProps) => {
   const isSidebarOpen = useAppSelector(selectOpenSideBar)
+  const isSmallScreen = useAppSelector(selectSmallScreen)
 
   const { pathname } = useLocation()
 
@@ -61,7 +69,8 @@ const Layout = (props: MainLayoutProps) => {
     <Root>
       <Header ishomepage={isHomePage} />
       <Sidebar ishomepage={isHomePage} open={isSidebarOpen} />
-      <Main open={isSidebarOpen}>
+      <Menu />
+      <Main open={isSidebarOpen} issmallscreen={isSmallScreen}>
         <Toolbar />
         <Page>{children}</Page>
       </Main>

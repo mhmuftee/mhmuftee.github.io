@@ -7,7 +7,6 @@ import { Pages } from "pages"
 import { useAppDispatch } from "redux/hooks"
 import { closeSideBar, openSideBar } from "redux/reducers/ui/slice"
 
-import MobileMenu from "./MobileMenu"
 import SidebarItem from "./SidebarItem"
 
 interface SidebarProps extends DrawerProps {
@@ -36,9 +35,6 @@ const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
 
   return (
     <>
-      <Hidden mdUp>
-        <MobileMenu />
-      </Hidden>
       <Hidden smDown>
         <Drawer
           sx={{

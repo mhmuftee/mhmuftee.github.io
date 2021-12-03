@@ -17,6 +17,7 @@ import {
   changeTheme,
   selectOpenMenu,
   selectThemeMode,
+  selectSmallScreen,
 } from "redux/reducers/ui/slice"
 
 const Filler = styled("div")({
@@ -48,8 +49,11 @@ const HeaderComponent = (props: AppBarProps) => {
   const { ishomepage } = props
   const themeMode = useAppSelector(selectThemeMode)
   const open = useAppSelector(selectOpenMenu)
+  const elavation = ishomepage ? 0 : 3
 
   const Themeicon = themeMode === "dark" ? Day : Night
+
+  const isSmallScreen = useAppSelector(selectSmallScreen)
 
   const handleChangeTheme = () => {
     const mode = themeMode === "dark" ? "light" : "dark"
@@ -62,13 +66,13 @@ const HeaderComponent = (props: AppBarProps) => {
   }
 
   return (
-    <AppBar position="fixed" elevation={0} ishomepage={ishomepage}>
+    <AppBar position="fixed" elevation={elavation} ishomepage={ishomepage}>
       <Toolbar>
         <IconButton
           edge="start"
           color="primary"
           aria-label="open drawer"
-          sx={{ ...(!ishomepage && { display: "none" }) }}
+          sx={{ ...(!ishomepage && !isSmallScreen && { display: "none" }) }}
           onClick={handleClick}
         >
           {open ? <Close /> : <Menu />}

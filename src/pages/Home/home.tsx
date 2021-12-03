@@ -32,7 +32,6 @@ const Details = styled("div")(() => ({
   justifyContent: "center",
   display: "flex",
   flexDirection: "column",
-  //background: "#DA2",
   position: "fixed",
 }))
 

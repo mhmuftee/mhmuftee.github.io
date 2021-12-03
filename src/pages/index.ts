@@ -24,6 +24,14 @@ const AboutPage: Page = {
   Component: Aboutcomponent,
 }
 
+const EduPage: Page = {
+  id: "Education",
+  path: "/education",
+  header: "Education",
+  icon: AboutIcon,
+  Component: Aboutcomponent,
+}
+
 const HomePage: Page = {
   id: "Home",
   path: "/",
@@ -32,7 +40,7 @@ const HomePage: Page = {
   Component: Homecomponent,
 }
 
-const Pages = [HomePage, AboutPage]
+const Pages = [HomePage, EduPage, AboutPage]
 
 export type { MainLayoutType, Page as PageDataType }
 

@@ -6,12 +6,14 @@ export interface UIState {
   themeMode: ThemeMode
   openSidebar: boolean
   openMenu: boolean
+  isSmallScreen: boolean
 }
 
 const initialState: UIState = {
   themeMode: "light",
   openSidebar: false,
   openMenu: false,
+  isSmallScreen: false,
 }
 
 export const uiSlice = createSlice({
@@ -33,14 +35,24 @@ export const uiSlice = createSlice({
     closeMenu: (state) => {
       state.openMenu = false
     },
+    setSmallScreen: (state, action: PayloadAction<boolean>) => {
+      state.isSmallScreen = action.payload
+    },
   },
 })
 
 export const selectThemeMode = (state: RootState) => state.ui.themeMode
 export const selectOpenSideBar = (state: RootState) => state.ui.openSidebar
 export const selectOpenMenu = (state: RootState) => state.ui.openMenu
+export const selectSmallScreen = (state: RootState) => state.ui.isSmallScreen
 
-export const { changeTheme, openSideBar, closeSideBar, openMenu, closeMenu } =
-  uiSlice.actions
+export const {
+  changeTheme,
+  openSideBar,
+  closeSideBar,
+  openMenu,
+  closeMenu,
+  setSmallScreen,
+} = uiSlice.actions
 
 export default uiSlice.reducer
