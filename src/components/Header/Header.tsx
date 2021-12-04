@@ -1,11 +1,12 @@
 import React from "react"
 
-import { Toolbar as MuiToolbar, IconButton } from "@mui/material"
+import { Toolbar as MuiToolbar, IconButton, Typography } from "@mui/material"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import { styled } from "@mui/material/styles"
 import Tooltip from "components/Tooltip"
 import {
-  AlignLeft as Menu,
+  Menu,
+  AlignLeft,
   Moon as Night,
   Sun as Day,
   X as Close,
@@ -26,6 +27,7 @@ const Filler = styled("div")({
 
 interface AppBarProps extends MuiAppBarProps {
   ishomepage: boolean
+  header?: string
 }
 
 const AppBar = styled(MuiAppBar, {
@@ -46,11 +48,15 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
 
 const HeaderComponent = (props: AppBarProps) => {
   const dispatch = useAppDispatch()
-  const { ishomepage } = props
+  const { ishomepage = false, header } = props
   const themeMode = useAppSelector(selectThemeMode)
   const open = useAppSelector(selectOpenMenu)
   const elavation = ishomepage ? 0 : 3
-
+  const menuText = React.useMemo(
+    () => (!ishomepage ? "" : open ? "Close" : "Menu"),
+    [ishomepage, open]
+  )
+  const MenuIcon = ishomepage ? Menu : AlignLeft
   const Themeicon = themeMode === "dark" ? Day : Night
 
   const isSmallScreen = useAppSelector(selectSmallScreen)
@@ -68,15 +74,26 @@ const HeaderComponent = (props: AppBarProps) => {
   return (
     <AppBar position="fixed" elevation={elavation} ishomepage={ishomepage}>
       <Toolbar>
-        <IconButton
-          edge="start"
-          color="primary"
-          aria-label="open drawer"
-          sx={{ ...(!ishomepage && !isSmallScreen && { display: "none" }) }}
-          onClick={handleClick}
-        >
-          {open ? <Close /> : <Menu />}
-        </IconButton>
+        <>
+          <IconButton
+            edge="start"
+            color="primary"
+            aria-label="open drawer"
+            sx={{ ...(!ishomepage && !isSmallScreen && { display: "none" }) }}
+            onClick={handleClick}
+          >
+            {open ? <Close /> : <MenuIcon />}
+          </IconButton>
+          <Typography variant="h6" component="div">
+            {menuText}
+          </Typography>
+        </>
+        <Filler />
+        {!ishomepage && (
+          <Typography variant="h4" component="div" sx={{ margin: "auto" }}>
+            {header}
+          </Typography>
+        )}
         <Filler />
         <Tooltip title="change theme" aria-label="change theme">
           <IconButton

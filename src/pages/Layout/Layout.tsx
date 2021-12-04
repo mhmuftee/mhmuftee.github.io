@@ -4,6 +4,7 @@ import { Box as MuiBox, Toolbar as MuiToolbar } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Header from "components/Header"
 import Sidebar, { Menu } from "components/Sidebar"
+import { Helmet } from "react-helmet"
 import { useLocation } from "react-router-dom"
 import { useAppSelector } from "redux/hooks"
 import { selectOpenSideBar, selectSmallScreen } from "redux/reducers/ui/slice"
@@ -53,7 +54,7 @@ const Main = styled("main", {
   }),
 }))
 
-type MainLayoutProps = React.PropsWithChildren<{}>
+type MainLayoutProps = React.PropsWithChildren<{ header: string }>
 
 const Layout = (props: MainLayoutProps) => {
   const isSidebarOpen = useAppSelector(selectOpenSideBar)
@@ -61,13 +62,14 @@ const Layout = (props: MainLayoutProps) => {
 
   const { pathname } = useLocation()
 
-  const isHomePage = pathname === "/"
+  const isHomePage = React.useMemo(() => pathname === "/", [pathname])
 
-  const { children } = props
+  const { children, header } = props
 
   return (
     <Root>
-      <Header ishomepage={isHomePage} />
+      <Helmet title={`${header} - mhmuftee`} />
+      <Header ishomepage={isHomePage} header={header} />
       <Sidebar ishomepage={isHomePage} open={isSidebarOpen} />
       <Menu />
       <Main open={isSidebarOpen} issmallscreen={isSmallScreen}>

@@ -7,12 +7,12 @@ import { useAppDispatch } from "redux/hooks"
 import { setSmallScreen } from "redux/reducers/ui/slice"
 
 const childRoutes = (Layout: MainLayoutType, routes: PageDataType[]) =>
-  routes.map(({ id, path, Component }) => (
+  routes.map(({ id, path, Component, header }) => (
     <Route
       key={id}
       path={path}
       element={
-        <Layout>
+        <Layout header={header}>
           <Component />
         </Layout>
       }
