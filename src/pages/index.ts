@@ -11,7 +11,7 @@ import { SvgIcon } from "@mui/material"
 
 import Aboutcomponent from "./about"
 import Homecomponent from "./Home"
-import MainLayout, { MainLayoutType } from "./Layout"
+import MainLayout from "./Layout"
 
 type Page = {
   id: string
@@ -63,7 +63,5 @@ const AboutPage: Page = {
 }
 
 const Pages = [HomePage, ExpPage, SkillPage, EduPage, AboutPage]
-
-export type { MainLayoutType, Page as PageDataType }
 
 export { MainLayout, Pages }

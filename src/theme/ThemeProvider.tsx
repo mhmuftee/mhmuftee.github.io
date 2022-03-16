@@ -6,12 +6,15 @@ import {
   responsiveFontSizes,
   createTheme as createMuiTheme,
 } from "@mui/material/styles"
-import { useAppDispatch, useAppSelector } from "redux/hooks"
-import { changeTheme, selectThemeMode } from "redux/reducers/ui/slice"
+import { useLocalStorage } from "hooks/useLocalStorage"
 import { darkThemeMode, lightThemeMode, ThemeMode } from "types"
 
 import { darkPalette } from "./PalellteDark"
 import { lightPalette } from "./PaletteLight"
+
+export const ThemeContext = React.createContext({
+  changeTheme: () => {},
+})
 
 const createTheme = (mode: ThemeMode) =>
   createMuiTheme({
@@ -26,28 +29,47 @@ const createTheme = (mode: ThemeMode) =>
       appbarheight: 70,
       sidebarwidth: 180,
     },
+    breakpoints: {
+      values: {
+        mobile: 0,
+        tablet: 640,
+        laptop: 1024,
+        desktop: 1200,
+      },
+    },
   })
 
 const ThemeProvider = (props: React.PropsWithChildren<{}>) => {
   const { children } = props
 
-  const dispatch = useAppDispatch()
-
-  const themeMode = useAppSelector(selectThemeMode)
-
+  const [mode, setMode] = useLocalStorage("thememode", "")
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
 
-  React.useEffect(() => {
-    const mode = prefersDarkMode ? darkThemeMode : lightThemeMode
-    dispatch(changeTheme(mode))
-  }, [dispatch, prefersDarkMode])
-
-  const theme = React.useMemo(
-    () => responsiveFontSizes(createTheme(themeMode)),
-    [themeMode]
+  const value = React.useMemo(
+    () => ({
+      changeTheme: () => {
+        setMode(mode === "light" ? "dark" : "light")
+      },
+    }),
+    [mode, setMode]
   )
 
-  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+  React.useEffect(() => {
+    if (mode === "") {
+      setMode(prefersDarkMode ? darkThemeMode : lightThemeMode)
+    }
+  }, [mode, prefersDarkMode, setMode])
+
+  const theme = React.useMemo(
+    () => responsiveFontSizes(createTheme(mode)),
+    [mode]
+  )
+
+  return (
+    <ThemeContext.Provider value={value}>
+      <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+    </ThemeContext.Provider>
+  )
 }
 
 export default ThemeProvider

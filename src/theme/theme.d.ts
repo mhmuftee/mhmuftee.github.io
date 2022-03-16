@@ -13,4 +13,15 @@ declare module "@mui/material/styles" {
   }
   interface Palette extends ExtendedPalette {}
   interface PaletteOptions extends Partial<ExtendedPalette> {}
+  interface BreakpointOverrides {
+    xs: false
+    sm: false
+    md: false
+    lg: false
+    xl: false
+    mobile: true
+    tablet: true
+    laptop: true
+    desktop: true
+  }
 }

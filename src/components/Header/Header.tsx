@@ -1,43 +1,42 @@
-import React from "react"
+import React, { useCallback, useState } from "react"
 
-import { Toolbar as MuiToolbar, IconButton, Typography } from "@mui/material"
+import { Zoom, useTheme } from "@mui/material"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import { styled } from "@mui/material/styles"
-import Tooltip from "components/Tooltip"
-import {
-  Menu,
-  AlignLeft,
-  Moon as Night,
-  Sun as Day,
-  X as Close,
-} from "react-feather"
-import { useAppDispatch, useAppSelector } from "redux/hooks"
-import {
-  openMenu,
-  closeMenu,
-  changeTheme,
-  selectOpenMenu,
-  selectThemeMode,
-  selectSmallScreen,
-} from "redux/reducers/ui/slice"
+import MuiToolbar from "@mui/material/Toolbar"
+import MuiTypography, { TypographyProps } from "@mui/material/Typography"
+import { Menu, AlignLeft, X as Close } from "react-feather"
+import { Helmet } from "react-helmet-async"
+import { useLocation, matchPath } from "react-router-dom"
+
+import MenuPopUp from "./Menu"
+import MenuButton from "./MenuButton"
+import ThemeButton from "./ThemeButton"
 
 const Filler = styled("div")({
   flexGrow: 1,
 })
-
 interface AppBarProps extends MuiAppBarProps {
-  ishomepage: boolean
-  header?: string
+  title?: string
+  isHomePage?: boolean
+  isSmallScreen?: boolean
 }
 
+const Typography = styled(MuiTypography, {
+  shouldForwardProp: (prop) => prop !== "hide",
+})<{ hide?: boolean } & TypographyProps>(({ hide }) => ({
+  margin: "auto",
+  ...(hide && { display: "none" }),
+}))
+
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "ishomepage",
-})<AppBarProps>(({ theme, ishomepage }) => ({
+  shouldForwardProp: (prop) => prop !== "isHomePage",
+})<AppBarProps>(({ theme, isHomePage }) => ({
   background: theme.palette.background.header,
   minHeight: theme.measurements.appbarheight,
   padding: "0 !important",
   zIndex: theme.zIndex.drawer + 1,
-  ...(ishomepage && {
+  ...(isHomePage && {
     background: "transparent",
   }),
 }))
@@ -46,70 +45,70 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.measurements.appbarheight,
 }))
 
-const HeaderComponent = (props: AppBarProps) => {
-  const dispatch = useAppDispatch()
-  const { ishomepage = false, header } = props
-  const themeMode = useAppSelector(selectThemeMode)
-  const open = useAppSelector(selectOpenMenu)
-  const elavation = ishomepage ? 0 : 3
-  const menuText = React.useMemo(
-    () => (!ishomepage ? "" : open ? "Close" : "Menu"),
-    [ishomepage, open]
-  )
-  const MenuIcon = ishomepage ? Menu : AlignLeft
-  const Themeicon = themeMode === "dark" ? Day : Night
+const Header = (props: AppBarProps) => {
+  const { title, isHomePage, isSmallScreen } = props
+  const elavation = isHomePage ? 0 : 3
+  const theme = useTheme()
 
-  const isSmallScreen = useAppSelector(selectSmallScreen)
+  const location = useLocation()
+  const zoom = !!matchPath(location.pathname, `/${title?.toLocaleLowerCase()}`)
 
-  const handleChangeTheme = () => {
-    const mode = themeMode === "dark" ? "light" : "dark"
-    dispatch(changeTheme(mode))
-  }
+  const [open, setOpen] = useState(false)
 
-  const handleClick = () => {
-    const func = open ? closeMenu : openMenu
-    dispatch(func())
+  const MenuIcon = isHomePage ? Menu : AlignLeft
+
+  const handleMenuClick = useCallback(() => {
+    setOpen((prev) => !prev)
+  }, [])
+
+  const onClose = useCallback(() => {
+    setOpen(false)
+  }, [])
+
+  const transitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen,
   }
 
   return (
-    <AppBar position="fixed" elevation={elavation} ishomepage={ishomepage}>
+    <AppBar position="fixed" elevation={elavation} isHomePage={isHomePage}>
+      <Helmet>
+        <title>{`${title} - mhmuftee`}</title>
+      </Helmet>
       <Toolbar>
         <>
-          <IconButton
+          <MenuButton
             edge="start"
-            color="primary"
+            clicked={open}
             aria-label="open drawer"
-            sx={{ ...(!ishomepage && !isSmallScreen && { display: "none" }) }}
-            onClick={handleClick}
+            onClick={handleMenuClick}
+            hidden={!isHomePage && !isSmallScreen}
           >
             {open ? <Close /> : <MenuIcon />}
-          </IconButton>
-          <Typography variant="h6" component="div">
-            {menuText}
+          </MenuButton>
+          <Typography variant="h6" hide={!isHomePage}>
+            {open ? "Close" : "Menu"}
           </Typography>
         </>
         <Filler />
-        {!ishomepage && (
-          <Typography variant="h4" component="div" sx={{ margin: "auto" }}>
-            {header}
+        <Zoom
+          in={zoom}
+          timeout={transitionDuration}
+          style={{
+            transitionDelay: `${transitionDuration.exit}ms`,
+          }}
+          unmountOnExit
+        >
+          <Typography variant="h4" hide={isHomePage}>
+            {title}
           </Typography>
-        )}
+        </Zoom>
         <Filler />
-        <Tooltip title="change theme" aria-label="change theme">
-          <IconButton
-            edge="end"
-            aria-label="change theme"
-            aria-haspopup="true"
-            color="primary"
-            id="mode"
-            onClick={handleChangeTheme}
-          >
-            <Themeicon />
-          </IconButton>
-        </Tooltip>
+        <ThemeButton />
       </Toolbar>
+      <MenuPopUp onClick={onClose} open={open} fullScreen={isSmallScreen} />
     </AppBar>
   )
 }
 
-export default HeaderComponent
+export default Header

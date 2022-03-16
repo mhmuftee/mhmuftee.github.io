@@ -1,5 +1,3 @@
-import Layout, { MainLayoutType } from "./Layout"
-
-export type { MainLayoutType }
+import Layout from "./Layout"
 
 export default Layout

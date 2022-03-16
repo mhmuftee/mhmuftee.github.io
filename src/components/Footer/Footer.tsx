@@ -22,7 +22,7 @@ const Info = styled("div")(({ theme }) => ({
   alignContent: "center",
   justifyContent: "flex-end",
   flexDirection: "row",
-  paddingLeft: theme.spacing(2),
+  paddingLeft: theme.spacing(1),
 }))
 
 const FooterFC = () => {
@@ -42,7 +42,7 @@ const FooterFC = () => {
         underline="hover"
         variant="body1"
         color="primary"
-        sx={{ pr: 2 }}
+        sx={{ pr: 1 }}
         target="_blank"
       >
         Source code

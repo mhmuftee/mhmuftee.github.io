@@ -1,18 +1,11 @@
 import React from "react"
 
-import { Hidden, List, useTheme } from "@mui/material"
-import Drawer, { DrawerProps } from "@mui/material/Drawer"
-import { styled } from "@mui/material/styles"
+import MuiDrawer, { DrawerProps } from "@mui/material/Drawer"
+import MuiList from "@mui/material/List"
+import { Theme, CSSObject, styled } from "@mui/material/styles"
 import { Pages } from "pages"
-import { useAppDispatch } from "redux/hooks"
-import { closeSideBar, openSideBar } from "redux/reducers/ui/slice"
 
 import SidebarItem from "./SidebarItem"
-
-interface SidebarProps extends DrawerProps {
-  open: boolean
-  ishomepage: boolean
-}
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -23,51 +16,35 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }))
 
-const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
-  const { ishomepage, open } = props
-  const theme = useTheme()
-  const dispatch = useAppDispatch()
+const Mixin = (theme: Theme): CSSObject => ({
+  flexShrink: 0,
+  background: theme.palette.background.body,
+  width: theme.measurements.sidebarwidth,
+  boxSizing: "border-box",
+})
 
-  React.useEffect(() => {
-    const dispatchfunc = ishomepage ? closeSideBar : openSideBar
-    dispatch(dispatchfunc())
-  }, [dispatch, ishomepage])
+const Drawer = styled(MuiDrawer)(({ theme }) => ({
+  ...Mixin(theme),
+  "& .MuiDrawer-paper": Mixin(theme),
+}))
 
+const List = styled(MuiList)(({ theme }) => ({
+  margin: theme.spacing(1),
+  background: theme.palette.background.paper,
+  flexGrow: 1,
+  height: "100%",
+}))
+
+const Sidebar: React.FC<DrawerProps> = (props: DrawerProps) => {
   return (
-    <>
-      <Hidden smDown>
-        <Drawer
-          sx={{
-            width: theme.measurements.sidebarwidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: theme.measurements.sidebarwidth,
-              boxSizing: "border-box",
-              background: theme.palette.background.sidebar,
-              ...(ishomepage && {
-                background: "transparent",
-              }),
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader />
-          <List>
-            {Pages.map(({ path, header, icon }) => (
-              <SidebarItem
-                key={path}
-                path={path}
-                text={header}
-                icon={icon}
-                showTooltip={!open}
-              />
-            ))}
-          </List>
-        </Drawer>
-      </Hidden>
-    </>
+    <Drawer variant="persistent" anchor="left" {...props}>
+      <DrawerHeader />
+      <List>
+        {Pages.map(({ path, header, icon }) => (
+          <SidebarItem key={path} path={path} text={header} icon={icon} />
+        ))}
+      </List>
+    </Drawer>
   )
 }
 

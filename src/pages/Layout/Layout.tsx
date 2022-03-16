@@ -1,13 +1,16 @@
-import React from "react"
+import React, { useCallback, useMemo, useLayoutEffect } from "react"
 
-import { Box as MuiBox, Toolbar as MuiToolbar } from "@mui/material"
+import {
+  Box as MuiBox,
+  Toolbar as MuiToolbar,
+  useMediaQuery,
+  Theme,
+} from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Header from "components/Header"
-import Sidebar, { Menu } from "components/Sidebar"
-import { Helmet } from "react-helmet"
+import Sidebar from "components/Sidebar"
+import { useLocalStorage } from "hooks/useLocalStorage"
 import { useLocation } from "react-router-dom"
-import { useAppSelector } from "redux/hooks"
-import { selectOpenSideBar, selectSmallScreen } from "redux/reducers/ui/slice"
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.measurements.appbarheight,
@@ -22,7 +25,7 @@ const Page = styled(MuiBox)(({ theme }) => ({
   flexGrow: 1,
   height: "100%",
   background: theme.palette.background.paper,
-  margin: theme.spacing(2),
+  margin: theme.spacing(1),
 }))
 
 const Main = styled("main", {
@@ -36,43 +39,54 @@ const Main = styled("main", {
   flexDirection: "column",
   height: "100%",
   background: theme.palette.background.body,
-  ...(!issmallscreen && {
-    marginLeft: `-${theme.measurements.sidebarwidth}px`,
-  }),
-  /** 
+  marginLeft: 0,
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
-  }), */
+  }),
+  ...(!issmallscreen && {
+    marginLeft: `-${theme.measurements.sidebarwidth}px`,
+  }),
   ...(open && {
     marginLeft: 0,
-    /**
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
-    }), */
+    }),
   }),
 }))
 
-type MainLayoutProps = React.PropsWithChildren<{ header: string }>
+type LayoutProps = React.PropsWithChildren<{ header: string }>
 
-const Layout = (props: MainLayoutProps) => {
-  const isSidebarOpen = useAppSelector(selectOpenSideBar)
-  const isSmallScreen = useAppSelector(selectSmallScreen)
-
+const Layout = (props: LayoutProps) => {
+  const { children, header } = props
+  const [open, setOpen] = useLocalStorage("sidebaropen", false)
   const { pathname } = useLocation()
 
-  const isHomePage = React.useMemo(() => pathname === "/", [pathname])
+  const isHomePage = useMemo(() => pathname === "/", [pathname])
 
-  const { children, header } = props
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("tablet")
+  )
+
+  const closeSideBar = useCallback(() => {
+    setOpen(false)
+  }, [setOpen])
+
+  useLayoutEffect(() => {
+    const shouldOpen = !isHomePage && !isSmallScreen
+    setOpen(shouldOpen)
+  }, [isHomePage, isSmallScreen, setOpen])
 
   return (
     <Root>
-      <Helmet title={`${header} - mhmuftee`} />
-      <Header ishomepage={isHomePage} header={header} />
-      <Sidebar ishomepage={isHomePage} open={isSidebarOpen} />
-      <Menu />
-      <Main open={isSidebarOpen} issmallscreen={isSmallScreen}>
+      <Header
+        title={header}
+        isHomePage={isHomePage}
+        isSmallScreen={isSmallScreen}
+      />
+      <Sidebar open={open} onClose={closeSideBar} />
+      <Main open={open} issmallscreen={isSmallScreen}>
         <Toolbar />
         <Page>{children}</Page>
       </Main>
@@ -81,5 +95,3 @@ const Layout = (props: MainLayoutProps) => {
 }
 
 export default Layout
-
-export type MainLayoutType = React.FC<MainLayoutProps>
