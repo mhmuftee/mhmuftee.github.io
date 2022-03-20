@@ -1,12 +1,12 @@
-import React, { useContext } from "react"
+import React, { useContext, PropsWithChildren } from "react"
 
-import MuiDrawer, { DrawerProps } from "@mui/material/Drawer"
+import MuiDrawer from "@mui/material/Drawer"
 import MuiList from "@mui/material/List"
 import { Theme, CSSObject, styled } from "@mui/material/styles"
-import { UIContext } from "components/UI/UIContext"
 import { Pages } from "pages"
+import { UIContext } from "ui"
 
-import SidebarItem from "./SidebarItem"
+import NavListItem from "./NavListItem"
 
 const Mixin = (theme: Theme): CSSObject => ({
   flexShrink: 0,
@@ -27,21 +27,16 @@ const List = styled(MuiList)(({ theme }) => ({
   height: "100%",
 }))
 
-const Sidebar: React.FC<DrawerProps> = (props: DrawerProps) => {
-  const { children, ...drawerProps } = props
+const Sidebar = (props: PropsWithChildren<{}>) => {
+  const { children } = props
   const { isSidebarOpen } = useContext(UIContext)
 
   return (
-    <Drawer
-      anchor="left"
-      open={isSidebarOpen}
-      variant="persistent"
-      {...drawerProps}
-    >
+    <Drawer anchor="left" open={isSidebarOpen} variant="persistent">
       {children}
       <List>
         {Pages.map((pageProps, index) => (
-          <SidebarItem key={index} {...pageProps} />
+          <NavListItem key={index} {...pageProps} />
         ))}
       </List>
     </Drawer>

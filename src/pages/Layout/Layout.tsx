@@ -1,11 +1,10 @@
 import React, { PropsWithChildren } from "react"
 
-import { Box as MuiBox, Toolbar as MuiToolbar } from "@mui/material"
+import { Box, Toolbar as MuiToolbar } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Header from "components/Header"
-import Menu from "components/Menu"
 import Sidebar from "components/Sidebar"
-import UIContextProvider from "components/UI/UIContextProvider"
+import UiContextProvider from "ui/UIContextProvider"
 
 import Body from "./Body"
 
@@ -13,12 +12,12 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.measurements.appbarheight,
 }))
 
-const Root = styled(MuiBox)({
+const Root = styled(Box)({
   display: "flex",
   height: "100%",
 })
 
-const View = styled(MuiBox)(({ theme }) => ({
+const View = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   height: "100%",
   margin: theme.spacing(1),
@@ -26,10 +25,9 @@ const View = styled(MuiBox)(({ theme }) => ({
 }))
 
 const Layout = (props: PropsWithChildren<{}>) => (
-  <UIContextProvider>
+  <UiContextProvider>
     <Root>
       <Header />
-      <Menu />
       <Sidebar>
         <Toolbar />
       </Sidebar>
@@ -38,7 +36,7 @@ const Layout = (props: PropsWithChildren<{}>) => (
         <View>{props.children}</View>
       </Body>
     </Root>
-  </UIContextProvider>
+  </UiContextProvider>
 )
 
 export default Layout

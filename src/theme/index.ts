@@ -1,3 +1,3 @@
-import ThemeProvider from "./ThemeProvider"
+import ThemeProvider, { ThemeContext } from "./ThemeProvider"
 
-export { ThemeProvider }
+export { ThemeContext, ThemeProvider }

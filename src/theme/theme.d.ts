@@ -21,6 +21,7 @@ declare module "@mui/material/styles" {
     xl: false
     mobile: true
     tablet: true
+    bigtablet: true
     laptop: true
     desktop: true
   }

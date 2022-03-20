@@ -1,6 +1,6 @@
-import { CSSProperties } from "react"
+import { CSSProperties, FunctionComponent } from "react"
 
-import { PaletteMode as ThemeMode } from "@mui/material"
+import { PaletteMode as ThemeMode, SvgIcon as MuiSvgIcon } from "@mui/material"
 
 export const darkThemeMode: ThemeMode = "dark"
 export const lightThemeMode: ThemeMode = "light"
@@ -21,3 +21,14 @@ export interface ExtendedBackground {
 }
 
 export type { ThemeMode }
+
+export type SvgIcon = typeof MuiSvgIcon
+
+export interface IPage {
+  id: string
+  path: string
+  header: string
+  title: string
+  Icon: SvgIcon
+  Component: FunctionComponent
+}

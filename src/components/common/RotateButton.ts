@@ -1,16 +1,13 @@
-import MuiIconButton, { IconButtonProps } from "@mui/material/IconButton"
+import IconButton, { IconButtonProps } from "@mui/material/IconButton"
 import { styled } from "@mui/material/styles"
 
-export interface RotatingButtonProps extends IconButtonProps {
+export interface RotateButtonProps extends IconButtonProps {
   clicked?: boolean
 }
 
-const RotatingButton = styled(MuiIconButton, {
+const RotatingButton = styled(IconButton, {
   shouldForwardProp: (prop) => prop !== "clicked",
-})<RotatingButtonProps>(({ theme, hidden, clicked }) => ({
-  ...(hidden && {
-    display: "none",
-  }),
+})<RotateButtonProps>(({ theme, clicked }) => ({
   transform: clicked ? "rotate(360deg)" : "rotate(0deg)",
   transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,

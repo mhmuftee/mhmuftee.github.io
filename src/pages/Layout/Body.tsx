@@ -1,7 +1,7 @@
-import { PropsWithChildren, useContext } from "react"
+import React, { PropsWithChildren, useContext } from "react"
 
-import React, { styled } from "@mui/material/styles"
-import { UIContext } from "components/UI/UIContext"
+import { styled } from "@mui/material/styles"
+import { UIContext } from "ui"
 
 const Main = styled("main", {
   shouldForwardProp: (prop) => prop !== "isSidebarOpen",

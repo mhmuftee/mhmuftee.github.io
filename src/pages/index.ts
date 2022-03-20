@@ -1,5 +1,3 @@
-import { FunctionComponent } from "react"
-
 import {
   Home as HomeIcon,
   Info as AboutIcon,
@@ -7,60 +5,58 @@ import {
   AutoFixHigh as SkillIcon,
   Psychology as ExpIcon,
 } from "@mui/icons-material"
-import { SvgIcon } from "@mui/material"
+import { IPage } from "types"
 
 import Aboutcomponent from "./about"
 import Homecomponent from "./Home"
-import MainLayout from "./Layout"
 
-type Page = {
-  id: string
-  path: string
-  title: string
-  Icon: typeof SvgIcon
-  Component: FunctionComponent
-}
+const getTitle = (header: string) => `${header} - mhmuftee`
 
-const HomePage: Page = {
+const HomePage: IPage = {
   id: "Home",
   path: "/",
-  title: "Home",
+  header: "Home",
+  title: getTitle("Home"),
   Icon: HomeIcon,
   Component: Homecomponent,
 }
 
-const ExpPage: Page = {
+const ExpPage: IPage = {
   id: "Experience",
   path: "/experience",
-  title: "Experience",
+  header: "Experience",
+  title: getTitle("Experience"),
   Icon: ExpIcon,
   Component: Aboutcomponent,
 }
 
-const SkillPage: Page = {
+const SkillPage: IPage = {
   id: "Skills",
   path: "/skills",
-  title: "Skills",
+  header: "Skills",
+  title: getTitle("Experience"),
   Icon: SkillIcon,
   Component: Aboutcomponent,
 }
 
-const EduPage: Page = {
+const EduPage: IPage = {
   id: "Education",
   path: "/education",
-  title: "Education",
+  header: "Education",
+  title: getTitle("Education"),
   Icon: EduIcon,
   Component: Aboutcomponent,
 }
 
-const AboutPage: Page = {
+const AboutPage: IPage = {
   id: "About",
   path: "/about",
-  title: "About",
+  header: "About",
+  title: getTitle("About"),
   Icon: AboutIcon,
   Component: Aboutcomponent,
 }
 
 const Pages = [HomePage, ExpPage, SkillPage, EduPage, AboutPage]
 
-export { MainLayout, Pages }
+export { Pages }

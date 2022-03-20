@@ -1,22 +1,22 @@
-import React from "react"
+import React, { useMemo } from "react"
 
 import {
-  ListItem,
   ListItemIcon,
   ListItemButton,
   ListItemText,
-  SvgIcon,
   Theme,
 } from "@mui/material"
+import ListItem, { ListItemProps } from "@mui/material/ListItem"
 import { makeStyles } from "@mui/styles"
 import { NavLink, useLocation, matchPath } from "react-router-dom"
+import { SvgIcon } from "types"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
     padding: theme.spacing(0.5, 1),
   },
   icon: {
-    minWidth: 35,
+    minWidth: 40,
   },
   button: {
     borderRadius: theme.spacing(1),
@@ -37,34 +37,35 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-type NavItemProps = {
-  title: string
+interface NavListItemProps extends ListItemProps {
+  header: string
   path: string
-  Icon: typeof SvgIcon
+  Icon: SvgIcon
 }
 
-const ItemComponent = (props: NavItemProps) => {
+const NavListItem = (props: NavListItemProps) => {
   const classes = useStyles()
-  const { title, path, Icon } = props
+  const { header, path, Icon } = props
 
-  const location = useLocation()
-  const active = path ? !!matchPath(location.pathname, path) : false
+  const { pathname } = useLocation()
+  const active = useMemo(() => !!matchPath(pathname, path), [pathname, path])
 
   return (
-    <ListItem disablePadding className={classes.item} tabIndex={-1}>
+    <ListItem disablePadding tabIndex={-1} className={classes.item}>
       <ListItemButton
-        component={NavLink}
         to={path}
+        component={NavLink}
+        state={{ header }}
         selected={active}
         classes={{ root: classes.button, selected: classes.buttonselected }}
       >
         <ListItemIcon className={classes.icon}>
           <Icon />
         </ListItemIcon>
-        <ListItemText primary={title} />
+        <ListItemText primary={header} />
       </ListItemButton>
     </ListItem>
   )
 }
 
-export default ItemComponent
+export default NavListItem

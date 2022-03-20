@@ -12,7 +12,7 @@ const UIContextProvider = (props: PropsWithChildren<{}>) => {
   const isHomePage = useMemo(() => pathname === "/", [pathname])
 
   const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("tablet")
+    theme.breakpoints.down("bigtablet")
   )
 
   const [isSidebarOpen] = useSidebar(isHomePage, isSmallScreen)
