@@ -4,9 +4,8 @@ import { Zoom, useTheme, Typography } from "@mui/material"
 import { useLocation } from "react-router-dom"
 
 const Title = () => {
-  const {
-    state: { header = "" },
-  } = useLocation()
+  const location = useLocation()
+  const header = location.state?.header
 
   const theme = useTheme()
 
