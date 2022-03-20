@@ -10,7 +10,7 @@ import { IPage } from "types"
 import Aboutcomponent from "./about"
 import Homecomponent from "./Home"
 
-const getTitle = (header: string) => `${header} - mhmuftee`
+const getTitle = (header: string) => `${header} | mhmuftee`
 
 const HomePage: IPage = {
   id: "Home",
