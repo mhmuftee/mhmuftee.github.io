@@ -2,7 +2,7 @@ import React, { useMemo } from "react"
 
 import { useTheme } from "@mui/material"
 import IconButton, { IconButtonProps } from "@mui/material/IconButton"
-import Tooltip from "components/Tooltip"
+import Tooltip from "components/common/Tooltip"
 import { Moon as Night, Sun as Day } from "react-feather"
 import { ThemeContext } from "theme/ThemeProvider"
 

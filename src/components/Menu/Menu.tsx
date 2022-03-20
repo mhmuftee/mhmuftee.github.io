@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import {
   Paper as MuiPaper,
@@ -36,8 +36,7 @@ const DialogActions = styled(MuiDialogActions)(({ theme }) => ({
 }))
 
 const Menu = () => {
-  const { isMenuOpen, menuCloseHandler, isSmallScreen } =
-    React.useContext(UIContext)
+  const { isMenuOpen, menuCloseHandler, isSmallScreen } = useContext(UIContext)
 
   return (
     <Dialog
