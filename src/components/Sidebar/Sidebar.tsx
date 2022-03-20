@@ -1,20 +1,12 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import MuiDrawer, { DrawerProps } from "@mui/material/Drawer"
 import MuiList from "@mui/material/List"
 import { Theme, CSSObject, styled } from "@mui/material/styles"
+import { UIContext } from "components/UI/UIContext"
 import { Pages } from "pages"
 
 import SidebarItem from "./SidebarItem"
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  minHeight: theme.measurements.appbarheight,
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  justifyContent: "flex-end",
-}))
 
 const Mixin = (theme: Theme): CSSObject => ({
   flexShrink: 0,
@@ -36,12 +28,20 @@ const List = styled(MuiList)(({ theme }) => ({
 }))
 
 const Sidebar: React.FC<DrawerProps> = (props: DrawerProps) => {
+  const { children, ...drawerProps } = props
+  const { isSidebarOpen } = useContext(UIContext)
+
   return (
-    <Drawer variant="persistent" anchor="left" {...props}>
-      <DrawerHeader />
+    <Drawer
+      anchor="left"
+      open={isSidebarOpen}
+      variant="persistent"
+      {...drawerProps}
+    >
+      {children}
       <List>
-        {Pages.map(({ path, header, icon }) => (
-          <SidebarItem key={path} path={path} text={header} icon={icon} />
+        {Pages.map((pageProps, index) => (
+          <SidebarItem key={index} {...pageProps} />
         ))}
       </List>
     </Drawer>

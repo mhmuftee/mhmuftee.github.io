@@ -1,25 +1,22 @@
-import React, { useCallback, useState } from "react"
+import React from "react"
 
 import { Zoom, useTheme } from "@mui/material"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import { styled } from "@mui/material/styles"
 import MuiToolbar from "@mui/material/Toolbar"
 import MuiTypography, { TypographyProps } from "@mui/material/Typography"
-import { Menu, AlignLeft, X as Close } from "react-feather"
-import { Helmet } from "react-helmet-async"
+import { UIContext } from "components/UI/UIContext"
+import { Menu, AlignLeft, X } from "react-feather"
 import { useLocation, matchPath } from "react-router-dom"
 
-import MenuPopUp from "./Menu"
-import MenuButton from "./MenuButton"
+import MenuButton from "./RotatingButton"
 import ThemeButton from "./ThemeButton"
 
 const Filler = styled("div")({
   flexGrow: 1,
 })
 interface AppBarProps extends MuiAppBarProps {
-  title?: string
   isHomePage?: boolean
-  isSmallScreen?: boolean
 }
 
 const Typography = styled(MuiTypography, {
@@ -46,24 +43,16 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
 }))
 
 const Header = (props: AppBarProps) => {
-  const { title, isHomePage, isSmallScreen } = props
+  const { title } = props
+  const { isMenuOpen, menuClickHandler, isSidebarOpen, isHomePage } =
+    React.useContext(UIContext)
   const elavation = isHomePage ? 0 : 3
   const theme = useTheme()
 
   const location = useLocation()
   const zoom = !!matchPath(location.pathname, `/${title?.toLocaleLowerCase()}`)
 
-  const [open, setOpen] = useState(false)
-
-  const MenuIcon = isHomePage ? Menu : AlignLeft
-
-  const handleMenuClick = useCallback(() => {
-    setOpen((prev) => !prev)
-  }, [])
-
-  const onClose = useCallback(() => {
-    setOpen(false)
-  }, [])
+  const MenuIcon = isMenuOpen ? X : isHomePage ? Menu : AlignLeft
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
@@ -72,22 +61,19 @@ const Header = (props: AppBarProps) => {
 
   return (
     <AppBar position="fixed" elevation={elavation} isHomePage={isHomePage}>
-      <Helmet>
-        <title>{`${title} - mhmuftee`}</title>
-      </Helmet>
       <Toolbar>
         <>
           <MenuButton
             edge="start"
-            clicked={open}
-            aria-label="open drawer"
-            onClick={handleMenuClick}
-            hidden={!isHomePage && !isSmallScreen}
+            color="primary"
+            clicked={isMenuOpen}
+            hidden={isSidebarOpen}
+            onClick={menuClickHandler}
           >
-            {open ? <Close /> : <MenuIcon />}
+            <MenuIcon />
           </MenuButton>
           <Typography variant="h6" hide={!isHomePage}>
-            {open ? "Close" : "Menu"}
+            {isMenuOpen ? "Close" : "Menu"}
           </Typography>
         </>
         <Filler />
@@ -106,7 +92,6 @@ const Header = (props: AppBarProps) => {
         <Filler />
         <ThemeButton />
       </Toolbar>
-      <MenuPopUp onClick={onClose} open={open} fullScreen={isSmallScreen} />
     </AppBar>
   )
 }

@@ -9,14 +9,15 @@ import {
   Theme,
   DialogActions,
 } from "@mui/material"
-import Dialog, { DialogProps } from "@mui/material/Dialog"
+import Dialog from "@mui/material/Dialog"
 import { styled } from "@mui/material/styles"
 import { makeStyles } from "@mui/styles"
+import { UIContext } from "components/UI/UIContext"
 import { Pages } from "pages"
 import { X as Close } from "react-feather"
 import { NavLink } from "react-router-dom"
 
-import MenuButton from "./MenuButton"
+import RotatingButton from "../Header/RotatingButton"
 
 const Paper = styled(MuiPaper)(({ theme }) => ({
   background: theme.palette.background.body,
@@ -43,31 +44,28 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-interface MenuDialogProps extends DialogProps {
-  onClick: () => void
-}
-
-const DialogMenu = (props: MenuDialogProps) => {
+const DialogMenu = () => {
   const classes = useStyles()
-
-  const { onClick } = props
+  const { isMenuOpen, menuCloseHandler, isSmallScreen } =
+    React.useContext(UIContext)
 
   return (
     <Dialog
+      open={isMenuOpen}
       PaperComponent={Paper}
       transitionDuration={500}
       maxWidth="tablet"
       fullWidth
-      {...props}
+      fullScreen={isSmallScreen}
     >
       <List sx={{ p: 1, alignContent: "center", justifyContent: "center" }}>
-        {Pages.map(({ path, header: text }) => (
+        {Pages.map(({ path, title: text }) => (
           <ListItem disablePadding key={path} tabIndex={-1}>
             <ListItemButton
               dense
               to={path}
               component={NavLink}
-              onClick={onClick}
+              onClick={menuCloseHandler}
               classes={{ root: classes.button }}
             >
               <ListItemText
@@ -78,7 +76,7 @@ const DialogMenu = (props: MenuDialogProps) => {
           </ListItem>
         ))}
       </List>
-      {props.fullScreen && (
+      {isSmallScreen && (
         <DialogActions
           sx={{
             p: 1,
@@ -87,9 +85,13 @@ const DialogMenu = (props: MenuDialogProps) => {
             position: "sticky",
           }}
         >
-          <MenuButton clicked={props.open} onClick={onClick}>
+          <RotatingButton
+            color="primary"
+            clicked={isMenuOpen}
+            onClick={menuCloseHandler}
+          >
             <Close />
-          </MenuButton>
+          </RotatingButton>
         </DialogActions>
       )}
     </Dialog>

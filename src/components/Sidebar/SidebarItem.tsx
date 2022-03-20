@@ -38,30 +38,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 type NavItemProps = {
-  text: string
+  title: string
   path: string
-  icon: typeof SvgIcon
+  Icon: typeof SvgIcon
 }
 
 const ItemComponent = (props: NavItemProps) => {
-  const { text, path: href, icon: Icon } = props
-  const location = useLocation()
   const classes = useStyles()
+  const { title, path, Icon } = props
 
-  const active = href ? !!matchPath(location.pathname, href) : false
+  const location = useLocation()
+  const active = path ? !!matchPath(location.pathname, path) : false
 
   return (
     <ListItem disablePadding className={classes.item} tabIndex={-1}>
       <ListItemButton
         component={NavLink}
-        to={href}
+        to={path}
         selected={active}
         classes={{ root: classes.button, selected: classes.buttonselected }}
       >
         <ListItemIcon className={classes.icon}>
           <Icon />
         </ListItemIcon>
-        <ListItemText primary={text} />
+        <ListItemText primary={title} />
       </ListItemButton>
     </ListItem>
   )

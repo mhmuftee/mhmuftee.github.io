@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from "react"
+import { FunctionComponent } from "react"
 
 import {
   Home as HomeIcon,
@@ -16,49 +16,48 @@ import MainLayout from "./Layout"
 type Page = {
   id: string
   path: string
-  header: string
-  icon: typeof SvgIcon
+  title: string
+  Icon: typeof SvgIcon
   Component: FunctionComponent
-  children?: ReactNode
 }
 
 const HomePage: Page = {
   id: "Home",
   path: "/",
-  header: "Home",
-  icon: HomeIcon,
+  title: "Home",
+  Icon: HomeIcon,
   Component: Homecomponent,
 }
 
 const ExpPage: Page = {
   id: "Experience",
   path: "/experience",
-  header: "Experience",
-  icon: ExpIcon,
+  title: "Experience",
+  Icon: ExpIcon,
   Component: Aboutcomponent,
 }
 
 const SkillPage: Page = {
   id: "Skills",
   path: "/skills",
-  header: "Skills",
-  icon: SkillIcon,
+  title: "Skills",
+  Icon: SkillIcon,
   Component: Aboutcomponent,
 }
 
 const EduPage: Page = {
   id: "Education",
   path: "/education",
-  header: "Education",
-  icon: EduIcon,
+  title: "Education",
+  Icon: EduIcon,
   Component: Aboutcomponent,
 }
 
 const AboutPage: Page = {
   id: "About",
   path: "/about",
-  header: "About",
-  icon: AboutIcon,
+  title: "About",
+  Icon: AboutIcon,
   Component: Aboutcomponent,
 }
 
