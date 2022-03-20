@@ -2,6 +2,7 @@ import React, { useContext, useMemo } from "react"
 
 import Typography from "@mui/material/Typography"
 import RotateButton, { RotateButtonProps } from "components/common/RotateButton"
+import Tooltip from "components/common/Tooltip"
 import { Menu, AlignLeft, X } from "react-feather"
 import { UIContext } from "ui"
 
@@ -14,17 +15,21 @@ const MenuButton = (props: RotateButtonProps) => {
     [isHomePage, isMenuOpen]
   )
 
+  const title = isMenuOpen ? "Close" : "Open Menu"
+
   return (
     <>
       {!isSidebarOpen && (
         <div style={{ left: 0, flexDirection: "row", display: "flex" }}>
-          <RotateButton
-            clicked={isMenuOpen}
-            onClick={menuClickHandler}
-            {...props}
-          >
-            <MenuIcon />
-          </RotateButton>
+          <Tooltip title={title} placement="bottom-end">
+            <RotateButton
+              clicked={isMenuOpen}
+              onClick={menuClickHandler}
+              {...props}
+            >
+              <MenuIcon />
+            </RotateButton>
+          </Tooltip>
           {isHomePage && (
             <Typography variant="h6" sx={{ margin: "auto" }}>
               {isMenuOpen ? "Close" : "Menu"}

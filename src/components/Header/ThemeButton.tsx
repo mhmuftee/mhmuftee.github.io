@@ -1,12 +1,12 @@
 import React, { useMemo } from "react"
 
 import { useTheme } from "@mui/material"
-import IconButton, { IconButtonProps } from "@mui/material/IconButton"
+import RotateButton, { RotateButtonProps } from "components/common/RotateButton"
 import Tooltip from "components/common/Tooltip"
 import { Moon as Night, Sun as Day } from "react-feather"
 import { ThemeContext } from "theme/ThemeProvider"
 
-const ThemeButton = (props: IconButtonProps) => {
+const ThemeButton = (props: RotateButtonProps) => {
   const {
     palette: { mode },
   } = useTheme()
@@ -15,10 +15,10 @@ const ThemeButton = (props: IconButtonProps) => {
   const ThemeIcon = useMemo(() => (mode === "dark" ? Day : Night), [mode])
 
   return (
-    <Tooltip title="change theme" placement="left">
-      <IconButton aria-label="change theme" onClick={changeTheme} {...props}>
+    <Tooltip title="change theme" placement="bottom-start">
+      <RotateButton aria-label="change theme" onClick={changeTheme} {...props}>
         <ThemeIcon />
-      </IconButton>
+      </RotateButton>
     </Tooltip>
   )
 }

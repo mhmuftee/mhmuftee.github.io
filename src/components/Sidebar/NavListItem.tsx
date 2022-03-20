@@ -24,15 +24,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& svg, svg g, span": {
       color: theme.palette.primary.main,
     },
-  },
-  buttonselected: {
+    "&:hover, &:focus": {
+      "& svg, svg g, span": {
+        color: theme.palette.getContrastText(theme.palette.primary.main),
+      },
+    },
     "&.Mui-selected": {
       background: theme.palette.primary.main,
       boxShadow: "2px 2px 5px rgb(0 0 0 / 20%)",
       "& svg, svg g, span": {
         color: theme.palette.getContrastText(theme.palette.primary.main),
       },
-      "&:hover, &:focus": { background: theme.palette.primary.main },
+      "&:hover, &:focus": {
+        background: theme.palette.primary.main,
+      },
     },
   },
 }))
@@ -57,7 +62,7 @@ const NavListItem = (props: NavListItemProps) => {
         component={NavLink}
         state={{ header }}
         selected={active}
-        classes={{ root: classes.button, selected: classes.buttonselected }}
+        classes={{ root: classes.button }}
       >
         <ListItemIcon className={classes.icon}>
           <Icon />

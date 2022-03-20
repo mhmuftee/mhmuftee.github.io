@@ -17,6 +17,7 @@ const Title = () => {
 
   return (
     <Zoom
+      key={header}
       in={true}
       timeout={transitionDuration}
       style={{
