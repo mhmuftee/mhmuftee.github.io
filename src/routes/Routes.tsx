@@ -13,10 +13,10 @@ const AppRoutes = () => (
           key={path}
           path={path}
           element={
-            <>
+            <React.Suspense fallback={<>...</>}>
               <Helmet {...props} />
               <Component />
-            </>
+            </React.Suspense>
           }
         />
       ))}

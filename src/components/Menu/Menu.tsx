@@ -8,6 +8,7 @@ import {
 } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import RotateButton from "components/common/RotateButton"
+import Tooltip from "components/common/Tooltip"
 import { routes } from "pages"
 import { X as CloseIcon } from "react-feather"
 import { UIContext } from "ui"
@@ -57,13 +58,15 @@ const Menu = () => {
       </List>
       {isSmallScreen && (
         <DialogActions>
-          <RotateButton
-            color="primary"
-            clicked={isMenuOpen}
-            onClick={menuCloseHandler}
-          >
-            <CloseIcon />
-          </RotateButton>
+          <Tooltip title="Close">
+            <RotateButton
+              color="primary"
+              clicked={isMenuOpen}
+              onClick={menuCloseHandler}
+            >
+              <CloseIcon />
+            </RotateButton>
+          </Tooltip>
         </DialogActions>
       )}
     </Dialog>

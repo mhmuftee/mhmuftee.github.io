@@ -1,3 +1,5 @@
+import React from "react"
+
 import {
   Home as HomeIcon,
   Info as AboutIcon,
@@ -7,8 +9,8 @@ import {
 } from "@mui/icons-material"
 import { IPage } from "types"
 
-import About from "./About"
-import Home from "./Home"
+const About = React.lazy(() => import("./About"))
+const Home = React.lazy(() => import("./Home"))
 
 const getTitle = (header: string) => `${header} | mhmuftee`
 
@@ -34,7 +36,7 @@ const SkillPage: IPage = {
   id: "Skills",
   path: "/skills",
   header: "Skills",
-  title: getTitle("Experience"),
+  title: getTitle("Skills"),
   Icon: SkillIcon,
   Component: About,
 }

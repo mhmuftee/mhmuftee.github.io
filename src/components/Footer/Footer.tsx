@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Copyright } from "@mui/icons-material"
-import { Link, Typography } from "@mui/material"
+import { Link as MuiLink, Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 
 const Line = styled("div")(({ theme }) => ({
@@ -13,7 +13,10 @@ const Line = styled("div")(({ theme }) => ({
   bottom: 0,
   left: 0,
   position: "fixed",
-  padding: theme.spacing(1),
+  padding: theme.spacing(0.5, 1),
+  [theme.breakpoints.down("tablet")]: {
+    padding: theme.spacing(0.5, 0.5),
+  },
 }))
 
 const Info = styled("div")(() => ({
@@ -22,6 +25,13 @@ const Info = styled("div")(() => ({
   alignContent: "center",
   justifyContent: "flex-end",
   flexDirection: "row",
+}))
+
+const Link = styled(MuiLink)(({ theme }) => ({
+  paddingRight: theme.spacing(0.5),
+  [theme.breakpoints.down("tablet")]: {
+    padding: theme.spacing(0.2),
+  },
 }))
 
 const Footer = () => {

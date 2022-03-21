@@ -17,25 +17,25 @@ const MenuButton = (props: RotateButtonProps) => {
 
   const title = isMenuOpen ? "Close" : "Open Menu"
 
-  return (
-    !isSidebarOpen && (
-      <Box sx={{ left: 0, flexDirection: "row", display: "flex" }}>
-        <Tooltip title={title} placement="bottom-end">
-          <RotateButton
-            clicked={isMenuOpen}
-            onClick={menuClickHandler}
-            {...props}
-          >
-            <MenuIcon />
-          </RotateButton>
-        </Tooltip>
-        {isHomePage && (
-          <Typography variant="h6" sx={{ margin: "auto" }}>
-            {isMenuOpen ? "Close" : "Menu"}
-          </Typography>
-        )}
-      </Box>
-    )
+  return !isSidebarOpen ? (
+    <Box sx={{ left: 0, flexDirection: "row", display: "flex" }}>
+      <Tooltip title={title} placement="bottom-end">
+        <RotateButton
+          clicked={isMenuOpen}
+          onClick={menuClickHandler}
+          {...props}
+        >
+          <MenuIcon />
+        </RotateButton>
+      </Tooltip>
+      {isHomePage && (
+        <Typography variant="h6" sx={{ margin: "auto" }}>
+          {isMenuOpen ? "Close" : "Menu"}
+        </Typography>
+      )}
+    </Box>
+  ) : (
+    <></>
   )
 }
 
