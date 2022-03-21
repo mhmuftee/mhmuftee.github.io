@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext } from "react"
 
 export const UIContext = createContext({
@@ -7,4 +8,6 @@ export const UIContext = createContext({
   isSidebarOpen: false,
   isHomePage: false,
   isSmallScreen: false,
+  title: "",
+  setHeaderTitle: (s: string) => {},
 })

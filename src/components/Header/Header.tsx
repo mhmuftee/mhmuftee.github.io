@@ -29,14 +29,14 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
 }))
 
 const Header = () => {
-  const { isHomePage } = useContext(UIContext)
+  const { isHomePage, title } = useContext(UIContext)
   const elevation = isHomePage ? 0 : 3
 
   return (
     <AppBar position="fixed" elevation={elevation} transparent={isHomePage}>
       <Toolbar>
         <MenuButton edge="start" color="primary" />
-        {!isHomePage && <Title />}
+        {!isHomePage && <Title title={title} />}
         <ThemeButton edge="end" color="primary" />
       </Toolbar>
       <Menu />

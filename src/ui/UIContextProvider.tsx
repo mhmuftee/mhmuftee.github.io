@@ -1,6 +1,7 @@
 import React, { useMemo, PropsWithChildren } from "react"
 
 import { useMediaQuery, Theme } from "@mui/material"
+import { useInfo } from "hooks/useInfo"
 import { useMenu } from "hooks/useMenu"
 import { useSidebar } from "hooks/useSidebar"
 import { useLocation } from "react-router-dom"
@@ -15,23 +16,34 @@ const UIContextProvider = (props: PropsWithChildren<{}>) => {
     theme.breakpoints.down("bigtablet")
   )
 
+  const [title, setHeaderTitle] = useInfo()
   const [isSidebarOpen] = useSidebar(isHomePage, isSmallScreen)
   const [isMenuOpen, menuClickHandler, menuCloseHandler] = useMenu()
 
-  return (
-    <UIContext.Provider
-      value={{
-        isMenuOpen,
-        isHomePage,
-        isSmallScreen,
-        isSidebarOpen,
-        menuClickHandler,
-        menuCloseHandler,
-      }}
-    >
-      {props.children}
-    </UIContext.Provider>
+  const value = useMemo(
+    () => ({
+      title,
+      isMenuOpen,
+      isHomePage,
+      isSmallScreen,
+      isSidebarOpen,
+      setHeaderTitle,
+      menuClickHandler,
+      menuCloseHandler,
+    }),
+    [
+      title,
+      isHomePage,
+      isMenuOpen,
+      isSidebarOpen,
+      isSmallScreen,
+      setHeaderTitle,
+      menuClickHandler,
+      menuCloseHandler,
+    ]
   )
+
+  return <UIContext.Provider value={value}>{props.children}</UIContext.Provider>
 }
 
 export default UIContextProvider
