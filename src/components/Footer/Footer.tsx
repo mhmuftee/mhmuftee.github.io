@@ -4,7 +4,7 @@ import { Copyright } from "@mui/icons-material"
 import { Link, Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 
-const Footer = styled("div")(({ theme }) => ({
+const Line = styled("div")(({ theme }) => ({
   display: "flex",
   alignContent: "center",
   alignItems: "center",
@@ -16,20 +16,21 @@ const Footer = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
 }))
 
-const Info = styled("div")(({ theme }) => ({
+const Info = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   alignContent: "center",
   justifyContent: "flex-end",
   flexDirection: "row",
-  paddingLeft: theme.spacing(1),
 }))
 
-const FooterFC = () => {
+const Footer = () => {
   const year = new Date().getFullYear()
+
   const url = String(process.env.REPO_SOURCE_CODE)
+
   return (
-    <Footer>
+    <Line>
       <Info>
         <Copyright fontSize="small" color="primary" />
         &nbsp;
@@ -42,13 +43,12 @@ const FooterFC = () => {
         underline="hover"
         variant="body1"
         color="primary"
-        sx={{ pr: 1 }}
         target="_blank"
       >
         Source code
       </Link>
-    </Footer>
+    </Line>
   )
 }
 
-export default FooterFC
+export default Footer

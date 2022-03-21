@@ -3,7 +3,7 @@ import React, { useContext, PropsWithChildren } from "react"
 import MuiDrawer from "@mui/material/Drawer"
 import MuiList from "@mui/material/List"
 import { Theme, CSSObject, styled } from "@mui/material/styles"
-import { Pages } from "pages"
+import { routes } from "pages"
 import { UIContext } from "ui"
 
 import NavListItem from "./NavListItem"
@@ -30,15 +30,14 @@ const List = styled(MuiList)<{ component?: React.ElementType }>(
 )
 
 const Sidebar = (props: PropsWithChildren<{}>) => {
-  const { children } = props
   const { isSidebarOpen } = useContext(UIContext)
 
   return (
     <Drawer anchor="left" open={isSidebarOpen} variant="persistent">
-      {children}
+      {props.children}
       <List component={"nav"}>
-        {Pages.map((pageProps, index) => (
-          <NavListItem key={index} {...pageProps} />
+        {routes.map((routeProps, index) => (
+          <NavListItem key={index} {...routeProps} />
         ))}
       </List>
     </Drawer>

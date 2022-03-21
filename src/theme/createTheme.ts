@@ -1,9 +1,12 @@
+import { Theme } from "@mui/material"
 import {
   createTheme as createMuiTheme,
   responsiveFontSizes,
 } from "@mui/material/styles"
 import { ThemeMode, darkThemeMode } from "types"
 
+import { getDarkParticlesOptions } from "./darkParticles"
+import { getLightParticlesOptions } from "./lightParticles"
 import { darkPalette } from "./PalellteDark"
 import { lightPalette } from "./PaletteLight"
 
@@ -33,3 +36,8 @@ const createTheme = (mode: ThemeMode) =>
 
 export const getTheme = (mode: ThemeMode) =>
   responsiveFontSizes(createTheme(mode))
+
+export const getParticlesOptions = (theme: Theme) =>
+  theme.palette.mode === "dark"
+    ? getDarkParticlesOptions(theme)
+    : getLightParticlesOptions(theme)

@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import RotateButton from "components/common/RotateButton"
-import { Pages } from "pages"
+import { routes } from "pages"
 import { X as CloseIcon } from "react-feather"
 import { UIContext } from "ui"
 
@@ -42,17 +42,17 @@ const Menu = () => {
 
   return (
     <Dialog
+      fullWidth
       open={isMenuOpen}
+      maxWidth="tablet"
       PaperComponent={Paper}
       transitionDuration={500}
-      maxWidth="tablet"
-      fullWidth
       fullScreen={isSmallScreen}
       onClose={menuCloseHandler}
     >
       <List component="nav">
-        {Pages.map((pageProps, index) => (
-          <NavListItem onClick={menuCloseHandler} key={index} {...pageProps} />
+        {routes.map((routeProps, index) => (
+          <NavListItem onClick={menuCloseHandler} key={index} {...routeProps} />
         ))}
       </List>
       {isSmallScreen && (

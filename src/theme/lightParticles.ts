@@ -1,6 +1,6 @@
-import { Theme } from "@mui/material/styles"
+import { Theme } from "@mui/material"
 
-export const getParticlesOptions = (theme: Theme) => ({
+export const getLightParticlesOptions = (theme: Theme) => ({
   background: {
     color: {
       value: theme.palette.background.body,

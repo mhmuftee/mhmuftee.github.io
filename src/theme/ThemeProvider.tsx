@@ -8,6 +8,7 @@ import { getTheme } from "./createTheme"
 export const ThemeContext = React.createContext({
   changeTheme: () => {},
 })
+
 const ThemeProvider = (props: PropsWithChildren<{}>) => {
   const [mode, changeTheme] = useThemeMode()
   const theme = useMemo(() => getTheme(mode), [mode])

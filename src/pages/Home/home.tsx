@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 
 import { GitHub, LinkedIn } from "@mui/icons-material"
 import { IconButton, LinearProgress, Typography } from "@mui/material"
@@ -6,10 +6,8 @@ import { styled } from "@mui/material/styles"
 import { useTheme } from "@mui/material/styles"
 import Footer from "components/Footer"
 import Particles from "react-tsparticles"
+import { getParticlesOptions } from "theme/createTheme"
 import { ISourceOptions } from "tsparticles"
-
-import { getDarkParticlesOptions } from "./darkParticles"
-import { getParticlesOptions } from "./particles"
 
 const Links = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -21,46 +19,55 @@ const Links = styled("div")(({ theme }) => ({
 }))
 
 const Details = styled("div")(() => ({
-  flexGrow: 1,
-  margin: "auto",
-  height: "100%",
-  width: "100%",
   top: 0,
   left: 0,
-  alignContent: "center",
-  alignItems: "center",
-  justifyContent: "center",
+  flexGrow: 1,
+  width: "100%",
+  height: "100%",
+  margin: "auto",
   display: "flex",
-  flexDirection: "column",
   position: "fixed",
+  alignItems: "center",
+  alignContent: "center",
+  flexDirection: "column",
+  justifyContent: "center",
 }))
 
-const HomeComponent = () => {
+const Home = () => {
   const theme = useTheme()
-  const linkedinUrl = String(process.env.PROFILE_LINKEDIN)
+
   const githubUrl = String(process.env.PROFILE_GITHUB)
-  const particlesOptions =
-    theme.palette.mode === "dark"
-      ? getDarkParticlesOptions(theme)
-      : getParticlesOptions(theme)
+  const linkedinUrl = String(process.env.PROFILE_LINKEDIN)
+
+  const particlesOptions = getParticlesOptions(theme) as ISourceOptions
+
+  const links = [
+    { name: "GitHub", Icon: GitHub, href: githubUrl },
+    { name: "LinkedIn", Icon: LinkedIn, href: linkedinUrl },
+  ]
+
   return (
     <>
-      <Particles options={particlesOptions as ISourceOptions} />
+      <Particles options={particlesOptions} />
       <Details>
         <Typography align="center" variant="h1">
           Mahfuzul Haque
         </Typography>
-        <LinearProgress color="secondary" />
+        <LinearProgress />
         <Typography align="center" variant="h3">
           Student, Software Engineer
         </Typography>
         <Links>
-          <IconButton aria-label="github" href={githubUrl} target="_blank">
-            <GitHub fontSize="large" sx={{ m: 1 }} />
-          </IconButton>
-          <IconButton aria-label="linkedin" href={linkedinUrl} target="_blank">
-            <LinkedIn fontSize="large" sx={{ m: 1 }} />
-          </IconButton>
+          {links.map(({ name, Icon, href }) => (
+            <IconButton
+              key={name}
+              aria-label={name}
+              href={href}
+              target="_blank"
+            >
+              <Icon fontSize="large" sx={{ m: 1 }} />
+            </IconButton>
+          ))}
         </Links>
       </Details>
       <Footer />
@@ -68,4 +75,4 @@ const HomeComponent = () => {
   )
 }
 
-export default HomeComponent
+export default Home

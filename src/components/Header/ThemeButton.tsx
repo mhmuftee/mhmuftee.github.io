@@ -12,6 +12,7 @@ const ThemeButton = (props: RotateButtonProps) => {
   } = useTheme()
 
   const { changeTheme } = React.useContext(ThemeContext)
+
   const ThemeIcon = useMemo(() => (mode === "dark" ? Day : Night), [mode])
 
   return (

@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface NavListItemProps {
   header: string
-  title: string
   path: string
   Icon: SvgIcon
   onClick?: () => void
@@ -32,7 +31,8 @@ interface NavListItemProps {
 
 const NavListItem = (props: NavListItemProps) => {
   const classes = useStyles()
-  const { header, title, path, onClick } = props
+
+  const { header, path, onClick } = props
 
   return (
     <ListItem disablePadding tabIndex={-1}>
@@ -40,7 +40,6 @@ const NavListItem = (props: NavListItemProps) => {
         dense
         to={path}
         component={NavLink}
-        state={{ header, title }}
         onClick={onClick}
         classes={{ root: classes.button }}
       >

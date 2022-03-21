@@ -7,8 +7,8 @@ import {
 } from "@mui/icons-material"
 import { IPage } from "types"
 
-import Aboutcomponent from "./about"
-import Homecomponent from "./Home"
+import About from "./About"
+import Home from "./Home"
 
 const getTitle = (header: string) => `${header} | mhmuftee`
 
@@ -18,7 +18,7 @@ const HomePage: IPage = {
   header: "Home",
   title: getTitle("Home"),
   Icon: HomeIcon,
-  Component: Homecomponent,
+  Component: Home,
 }
 
 const ExpPage: IPage = {
@@ -27,7 +27,7 @@ const ExpPage: IPage = {
   header: "Experience",
   title: getTitle("Experience"),
   Icon: ExpIcon,
-  Component: Aboutcomponent,
+  Component: About,
 }
 
 const SkillPage: IPage = {
@@ -36,7 +36,7 @@ const SkillPage: IPage = {
   header: "Skills",
   title: getTitle("Experience"),
   Icon: SkillIcon,
-  Component: Aboutcomponent,
+  Component: About,
 }
 
 const EduPage: IPage = {
@@ -45,7 +45,7 @@ const EduPage: IPage = {
   header: "Education",
   title: getTitle("Education"),
   Icon: EduIcon,
-  Component: Aboutcomponent,
+  Component: About,
 }
 
 const AboutPage: IPage = {
@@ -54,9 +54,9 @@ const AboutPage: IPage = {
   header: "About",
   title: getTitle("About"),
   Icon: AboutIcon,
-  Component: Aboutcomponent,
+  Component: About,
 }
 
-const Pages = [HomePage, ExpPage, SkillPage, EduPage, AboutPage]
+const routes = [HomePage, ExpPage, SkillPage, EduPage, AboutPage]
 
-export { Pages }
+export { routes }
