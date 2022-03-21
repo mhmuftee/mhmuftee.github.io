@@ -22,11 +22,13 @@ const Paper = styled(MuiPaper)(({ theme }) => ({
   },
 }))
 
-const List = styled(MuiList)(({ theme }) => ({
-  padding: theme.spacing(1),
-  alignContent: "center",
-  justifyContent: "center",
-}))
+const List = styled(MuiList)<{ component?: React.ElementType }>(
+  ({ theme }) => ({
+    padding: theme.spacing(1),
+    alignContent: "center",
+    justifyContent: "center",
+  })
+)
 
 const DialogActions = styled(MuiDialogActions)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -48,7 +50,7 @@ const Menu = () => {
       fullScreen={isSmallScreen}
       onClose={menuCloseHandler}
     >
-      <List>
+      <List component="nav">
         {Pages.map((pageProps, index) => (
           <NavListItem onClick={menuCloseHandler} key={index} {...pageProps} />
         ))}

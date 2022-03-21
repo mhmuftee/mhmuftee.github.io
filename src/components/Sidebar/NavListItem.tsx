@@ -50,7 +50,7 @@ interface NavListItemProps extends ListItemProps {
 
 const NavListItem = (props: NavListItemProps) => {
   const classes = useStyles()
-  const { header, path, Icon } = props
+  const { header, title, path, Icon } = props
 
   const { pathname } = useLocation()
   const active = useMemo(() => !!matchPath(pathname, path), [pathname, path])
@@ -60,7 +60,7 @@ const NavListItem = (props: NavListItemProps) => {
       <ListItemButton
         to={path}
         component={NavLink}
-        state={{ header }}
+        state={{ header, title }}
         selected={active}
         classes={{ root: classes.button }}
       >

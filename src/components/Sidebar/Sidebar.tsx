@@ -20,12 +20,14 @@ const Drawer = styled(MuiDrawer)(({ theme }) => ({
   "& .MuiDrawer-paper": Mixin(theme),
 }))
 
-const List = styled(MuiList)(({ theme }) => ({
-  margin: theme.spacing(1),
-  background: theme.palette.background.paper,
-  flexGrow: 1,
-  height: "100%",
-}))
+const List = styled(MuiList)<{ component?: React.ElementType }>(
+  ({ theme }) => ({
+    margin: theme.spacing(1),
+    background: theme.palette.background.paper,
+    flexGrow: 1,
+    height: "100%",
+  })
+)
 
 const Sidebar = (props: PropsWithChildren<{}>) => {
   const { children } = props
@@ -34,7 +36,7 @@ const Sidebar = (props: PropsWithChildren<{}>) => {
   return (
     <Drawer anchor="left" open={isSidebarOpen} variant="persistent">
       {children}
-      <List>
+      <List component={"nav"}>
         {Pages.map((pageProps, index) => (
           <NavListItem key={index} {...pageProps} />
         ))}

@@ -1,9 +1,10 @@
-import React, { PropsWithChildren } from "react"
+import React from "react"
 
 import { Box, Toolbar as MuiToolbar } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Header from "components/Header"
 import Sidebar from "components/Sidebar"
+import { Outlet } from "react-router-dom"
 import UiContextProvider from "ui/UIContextProvider"
 
 import Body from "./Body"
@@ -24,7 +25,7 @@ const View = styled(Box)(({ theme }) => ({
   background: theme.palette.background.paper,
 }))
 
-const Layout = (props: PropsWithChildren<{}>) => (
+const Layout = () => (
   <UiContextProvider>
     <Root>
       <Header />
@@ -33,7 +34,9 @@ const Layout = (props: PropsWithChildren<{}>) => (
       </Sidebar>
       <Body>
         <Toolbar />
-        <View>{props.children}</View>
+        <View>
+          <Outlet />
+        </View>
       </Body>
     </Root>
   </UiContextProvider>
