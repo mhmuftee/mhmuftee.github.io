@@ -1,6 +1,7 @@
 import React from "react"
 
 import { routes } from "pages"
+import Fallback from "pages/Fallback"
 import Helmet from "pages/Helmet"
 import Layout from "pages/Layout"
 import { Route, Routes } from "react-router-dom"
@@ -13,7 +14,7 @@ const AppRoutes = () => (
           key={path}
           path={path}
           element={
-            <React.Suspense fallback={<>...</>}>
+            <React.Suspense fallback={<Fallback />}>
               <Helmet {...props} />
               <Component />
             </React.Suspense>
