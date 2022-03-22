@@ -23,7 +23,7 @@ const Info = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   alignContent: "center",
-  justifyContent: "flex-end",
+  justifyContent: "space-between",
   flexDirection: "row",
 }))
 

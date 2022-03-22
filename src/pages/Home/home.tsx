@@ -4,6 +4,7 @@ import { GitHub, LinkedIn } from "@mui/icons-material"
 import { IconButton, LinearProgress, Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import { useTheme } from "@mui/material/styles"
+import Tooltip from "components/common/Tooltip"
 import Footer from "components/Footer"
 import Particles from "react-tsparticles"
 import { getParticlesOptions } from "theme/createTheme"
@@ -59,14 +60,11 @@ const Home = () => {
         </Typography>
         <Links>
           {links.map(({ name, Icon, href }) => (
-            <IconButton
-              key={name}
-              aria-label={name}
-              href={href}
-              target="_blank"
-            >
-              <Icon fontSize="large" sx={{ m: 1 }} />
-            </IconButton>
+            <Tooltip key={name} title={`Go to ${name} profile`}>
+              <IconButton aria-label={name} href={href} target="_blank">
+                <Icon fontSize="large" sx={{ m: 1 }} />
+              </IconButton>
+            </Tooltip>
           ))}
         </Links>
       </Details>
