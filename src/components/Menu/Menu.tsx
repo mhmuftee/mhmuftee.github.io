@@ -4,9 +4,12 @@ import {
   Paper as MuiPaper,
   List as MuiList,
   Dialog,
+  Slide as MuiSlide,
+  Zoom as MuiZoom,
   DialogActions as MuiDialogActions,
 } from "@mui/material"
 import { styled } from "@mui/material/styles"
+import { TransitionProps } from "@mui/material/transitions"
 import RotateButton from "components/common/RotateButton"
 import Tooltip from "components/common/Tooltip"
 import { routes } from "pages"
@@ -14,6 +17,24 @@ import { X as CloseIcon } from "react-feather"
 import { UIContext } from "ui"
 
 import NavListItem from "./NavListItem"
+
+const Slide = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>
+  },
+  ref: React.Ref<unknown>
+) {
+  return <MuiSlide direction="right" ref={ref} {...props} />
+})
+
+const Zoom = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>
+  },
+  ref: React.Ref<unknown>
+) {
+  return <MuiZoom ref={ref} {...props} />
+})
 
 const Paper = styled(MuiPaper)(({ theme }) => ({
   background: theme.palette.background.body,
@@ -41,15 +62,19 @@ const DialogActions = styled(MuiDialogActions)(({ theme }) => ({
 const Menu = () => {
   const { isMenuOpen, menuCloseHandler, isSmallScreen } = useContext(UIContext)
 
+  const Transition = isSmallScreen ? Slide : Zoom
+  const duration = isSmallScreen ? 350 : 500
+
   return (
     <Dialog
       fullWidth
       open={isMenuOpen}
       maxWidth="tablet"
       PaperComponent={Paper}
-      transitionDuration={500}
+      transitionDuration={duration}
       fullScreen={isSmallScreen}
       onClose={menuCloseHandler}
+      TransitionComponent={Transition}
     >
       <List component="nav">
         {routes.map((routeProps, index) => (
