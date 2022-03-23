@@ -16,6 +16,7 @@ const Links = styled("div")(({ theme }) => ({
   alignContent: "center",
   alignItems: "center",
   justifyContent: "center",
+
   display: "flex",
 }))
 
