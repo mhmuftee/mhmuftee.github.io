@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const host = process.env.BACKEND_URL
+const host = process.env.DATABASE_API
 
 const instance = axios.create({
   baseURL: host,

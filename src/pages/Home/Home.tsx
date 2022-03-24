@@ -38,8 +38,8 @@ const Details = styled("div")(() => ({
 const Home = () => {
   const theme = useTheme()
 
-  const githubUrl = String(process.env.PROFILE_GITHUB)
-  const linkedinUrl = String(process.env.PROFILE_LINKEDIN)
+  const githubUrl = String(process.env.GITHUB_PROFILE_URL)
+  const linkedinUrl = String(process.env.LINKEDIN_PROFILE_URL)
 
   const particlesOptions = getParticlesOptions(theme) as ISourceOptions
 

@@ -37,7 +37,7 @@ const Link = styled(MuiLink)(({ theme }) => ({
 const Footer = () => {
   const year = new Date().getFullYear()
 
-  const url = String(process.env.REPO_SOURCE_CODE)
+  const url = String(process.env.SOURCE_CODE_REPO_URL)
 
   return (
     <Line>
