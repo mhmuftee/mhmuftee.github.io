@@ -10,6 +10,11 @@ import TitleContextProvider from "ui/TitleContextProvider"
 
 import Body from "./Body"
 
+const Root = styled(Box)({
+  display: "flex",
+  height: "100%",
+})
+
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.measurements.appbarheight,
 }))
@@ -25,18 +30,20 @@ const Layout = () => {
   const openSidebar = useSidebar()
 
   return (
-    <Body marginLeft={!openSidebar}>
+    <Root>
       <Sidebar open={openSidebar}>
         <Toolbar />
       </Sidebar>
-      <Toolbar />
-      <View>
-        <TitleContextProvider>
-          <Header showMenuButton={!openSidebar} />
-          <Outlet />
-        </TitleContextProvider>
-      </View>
-    </Body>
+      <Body putLeftMargin={!openSidebar}>
+        <Toolbar />
+        <View>
+          <TitleContextProvider>
+            <Header showMenuButton={!openSidebar} />
+            <Outlet />
+          </TitleContextProvider>
+        </View>
+      </Body>
+    </Root>
   )
 }
 

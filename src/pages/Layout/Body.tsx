@@ -3,25 +3,25 @@ import React, { PropsWithChildren } from "react"
 import { styled } from "@mui/material/styles"
 
 interface BodyProps {
-  marginLeft?: boolean
+  putLeftMargin?: boolean
 }
 
 const Main = styled("main", {
-  shouldForwardProp: (prop) => prop !== "marginLeft",
-})<BodyProps>(({ theme, marginLeft }) => ({
+  shouldForwardProp: (prop) => prop !== "putLeftMargin",
+})<BodyProps>(({ theme, putLeftMargin }) => ({
   flexGrow: 1,
   height: "100%",
   display: "flex",
   flexDirection: "column",
   background: theme.palette.background.body,
-  ...(marginLeft && {
+  ...(putLeftMargin && {
     marginLeft: `-${theme.measurements.sidebarwidth}px`,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   }),
-  ...(!marginLeft && {
+  ...(!putLeftMargin && {
     marginLeft: 0,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,

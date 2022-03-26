@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react"
 
 import { Helmet as AsyncHelmet } from "react-helmet-async"
-import { UIContext } from "ui"
+import { TitleContext } from "ui"
 
 type HelmetProps = {
   title: string
@@ -11,7 +11,7 @@ type HelmetProps = {
 const Helmet = (props: HelmetProps) => {
   const { title, header } = props
 
-  const { setHeaderTitle } = useContext(UIContext)
+  const { setHeaderTitle } = useContext(TitleContext)
 
   useEffect(() => {
     setHeaderTitle(header)
