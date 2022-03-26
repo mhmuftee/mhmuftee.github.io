@@ -1,10 +1,9 @@
-import React, { useContext } from "react"
+import React, { useMemo } from "react"
 
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import { styled } from "@mui/material/styles"
 import MuiToolbar from "@mui/material/Toolbar"
-import Menu from "components/Menu"
-import { UIContext } from "ui"
+import { useHomePage } from "hooks/useHomePage"
 
 import MenuButton from "./MenuButton"
 import ThemeButton from "./ThemeButton"
@@ -28,18 +27,24 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   justifyContent: "space-between",
 }))
 
-const Header = () => {
-  const { isHomePage, title } = useContext(UIContext)
-  const elevation = isHomePage ? 0 : 3
+type HeaderProps = {
+  showMenuButton: boolean
+}
+
+const Header = (props: HeaderProps) => {
+  const { showMenuButton } = props
+
+  const isHomePage = useHomePage()
+
+  const elevation = useMemo(() => (isHomePage ? 0 : 3), [isHomePage])
 
   return (
     <AppBar position="fixed" elevation={elevation} transparent={isHomePage}>
       <Toolbar>
-        <MenuButton edge="start" color="primary" />
-        {!isHomePage && <Title title={title} />}
+        {showMenuButton && <MenuButton edge="start" color="primary" />}
+        {!isHomePage && <Title />}
         <ThemeButton edge="end" color="primary" />
       </Toolbar>
-      <Menu />
     </AppBar>
   )
 }

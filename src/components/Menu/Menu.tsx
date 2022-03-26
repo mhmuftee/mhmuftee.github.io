@@ -1,20 +1,19 @@
-import React, { useContext } from "react"
+import React, { useMemo } from "react"
 
 import {
-  Paper as MuiPaper,
   List as MuiList,
-  Dialog,
   Slide as MuiSlide,
   Zoom as MuiZoom,
   DialogActions as MuiDialogActions,
 } from "@mui/material"
+import MuiDialog, { DialogProps } from "@mui/material/Dialog"
 import { styled } from "@mui/material/styles"
 import { TransitionProps } from "@mui/material/transitions"
 import RotateButton from "components/common/RotateButton"
 import Tooltip from "components/common/Tooltip"
+import { useSmallScreen } from "hooks/useSmallScreen"
 import { routes } from "pages"
 import { X as CloseIcon } from "react-feather"
-import { UIContext } from "ui"
 
 import NavListItem from "./NavListItem"
 
@@ -36,11 +35,15 @@ const Zoom = React.forwardRef(function Transition(
   return <MuiZoom ref={ref} {...props} />
 })
 
-const Paper = styled(MuiPaper)(({ theme }) => ({
-  background: theme.palette.background.body,
-  [theme.breakpoints.down("bigtablet")]: {
-    alignContent: "center",
-    justifyContent: "center",
+const Dialog = styled(MuiDialog)(({ theme, fullScreen }) => ({
+  "& .MuiDialog-paper": {
+    background: theme.palette.background.body,
+  },
+  "& .MuiDialog-paperFullScreen": {
+    ...(fullScreen && {
+      alignContent: "center",
+      justifyContent: "center",
+    }),
   },
 }))
 
@@ -59,26 +62,31 @@ const DialogActions = styled(MuiDialogActions)(({ theme }) => ({
   position: "sticky",
 }))
 
-const Menu = () => {
-  const { isMenuOpen, menuCloseHandler, isSmallScreen } = useContext(UIContext)
+type MenuProps = DialogProps & { onMenuItemClick: () => void }
 
-  const Transition = isSmallScreen ? Slide : Zoom
-  const duration = isSmallScreen ? 350 : 500
+const Menu = (props: MenuProps) => {
+  const { onMenuItemClick, ...dialogProps } = props
+
+  const isSmallScreen = useSmallScreen()
+
+  const Transition = useMemo(
+    () => (isSmallScreen ? Slide : Zoom),
+    [isSmallScreen]
+  )
+  const duration = useMemo(() => (isSmallScreen ? 350 : 500), [isSmallScreen])
 
   return (
     <Dialog
       fullWidth
-      open={isMenuOpen}
       maxWidth="tablet"
-      PaperComponent={Paper}
-      transitionDuration={duration}
       fullScreen={isSmallScreen}
-      onClose={menuCloseHandler}
+      transitionDuration={duration}
       TransitionComponent={Transition}
+      {...dialogProps}
     >
       <List component="nav">
         {routes.map((routeProps, index) => (
-          <NavListItem onClick={menuCloseHandler} key={index} {...routeProps} />
+          <NavListItem onClick={onMenuItemClick} key={index} {...routeProps} />
         ))}
       </List>
       {isSmallScreen && (
@@ -86,8 +94,8 @@ const Menu = () => {
           <Tooltip title="Close">
             <RotateButton
               color="primary"
-              clicked={isMenuOpen}
-              onClick={menuCloseHandler}
+              clicked={props.open}
+              onClick={onMenuItemClick}
             >
               <CloseIcon />
             </RotateButton>

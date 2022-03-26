@@ -4,19 +4,15 @@ import { Box, Toolbar as MuiToolbar } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Header from "components/Header"
 import Sidebar from "components/Sidebar"
+import { useSidebar } from "hooks/useSidebar"
 import { Outlet } from "react-router-dom"
-import UiContextProvider from "ui/UIContextProvider"
+import TitleContextProvider from "ui/TitleContextProvider"
 
 import Body from "./Body"
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
   minHeight: theme.measurements.appbarheight,
 }))
-
-const Root = styled(Box)({
-  display: "flex",
-  height: "100%",
-})
 
 const View = styled(Box)(({ theme }) => ({
   flexGrow: 1,
@@ -25,21 +21,23 @@ const View = styled(Box)(({ theme }) => ({
   background: theme.palette.background.paper,
 }))
 
-const Layout = () => (
-  <UiContextProvider>
-    <Root>
-      <Header />
-      <Sidebar>
+const Layout = () => {
+  const openSidebar = useSidebar()
+
+  return (
+    <Body marginLeft={!openSidebar}>
+      <Sidebar open={openSidebar}>
         <Toolbar />
       </Sidebar>
-      <Body>
-        <Toolbar />
-        <View>
+      <Toolbar />
+      <View>
+        <TitleContextProvider>
+          <Header showMenuButton={!openSidebar} />
           <Outlet />
-        </View>
-      </Body>
-    </Root>
-  </UiContextProvider>
-)
+        </TitleContextProvider>
+      </View>
+    </Body>
+  )
+}
 
 export default Layout

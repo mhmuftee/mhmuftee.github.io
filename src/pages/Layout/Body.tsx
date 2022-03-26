@@ -1,26 +1,27 @@
-import React, { PropsWithChildren, useContext } from "react"
+import React, { PropsWithChildren } from "react"
 
 import { styled } from "@mui/material/styles"
-import { UIContext } from "ui"
+
+interface BodyProps {
+  marginLeft?: boolean
+}
 
 const Main = styled("main", {
-  shouldForwardProp: (prop) => prop !== "isSidebarOpen",
-})<{
-  isSidebarOpen?: boolean
-}>(({ theme, isSidebarOpen }) => ({
+  shouldForwardProp: (prop) => prop !== "marginLeft",
+})<BodyProps>(({ theme, marginLeft }) => ({
   flexGrow: 1,
   height: "100%",
   display: "flex",
   flexDirection: "column",
   background: theme.palette.background.body,
-  ...(!isSidebarOpen && {
+  ...(marginLeft && {
     marginLeft: `-${theme.measurements.sidebarwidth}px`,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   }),
-  ...(isSidebarOpen && {
+  ...(!marginLeft && {
     marginLeft: 0,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
@@ -29,9 +30,10 @@ const Main = styled("main", {
   }),
 }))
 
-const Body = (props: PropsWithChildren<{}>) => {
-  const { isSidebarOpen } = useContext(UIContext)
-  return <Main isSidebarOpen={isSidebarOpen}>{props.children}</Main>
+const Body = (props: PropsWithChildren<BodyProps>) => {
+  const { children, ...bprops } = props
+
+  return <Main {...bprops}>{children}</Main>
 }
 
 export default Body

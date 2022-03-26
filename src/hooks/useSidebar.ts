@@ -1,20 +1,20 @@
-import { useCallback, useLayoutEffect } from "react"
+import { useEffect } from "react"
 
+import { useHomePage } from "hooks/useHomePage"
 import { useLocalStorage } from "hooks/useLocalStorage"
+import { useSmallScreen } from "hooks/useSmallScreen"
 
-export const useSidebar = (
-  isHomePage: boolean,
-  isSmallScreen: boolean
-): [boolean, () => void] => {
+export const useSidebar = (): boolean => {
   const [open, setOpen] = useLocalStorage("sidebaropen", false)
 
-  const closeSideBar = useCallback(() => {
-    setOpen(false)
-  }, [setOpen])
+  const isHomePage = useHomePage()
+  const isSmallScreen = useSmallScreen()
 
-  useLayoutEffect(() => {
-    setOpen(!isHomePage && !isSmallScreen)
-  }, [isHomePage, isSmallScreen, setOpen])
+  useEffect(() => {
+    const shouldOpen = !isHomePage && !isSmallScreen
+    if (shouldOpen && !open) setOpen(true)
+    if (!shouldOpen && open) setOpen(false)
+  }, [isHomePage, isSmallScreen, open, setOpen])
 
-  return [open, closeSideBar]
+  return open
 }

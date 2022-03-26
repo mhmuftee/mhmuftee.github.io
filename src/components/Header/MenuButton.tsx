@@ -1,14 +1,17 @@
-import React, { useContext, useMemo } from "react"
+import React, { useMemo } from "react"
 
 import { Box, Typography } from "@mui/material"
 import RotateButton, { RotateButtonProps } from "components/common/RotateButton"
 import Tooltip from "components/common/Tooltip"
+import MenuDialog from "components/Menu"
+import { useHomePage } from "hooks/useHomePage"
+import { useMenu } from "hooks/useMenu"
 import { Menu, AlignLeft, X } from "react-feather"
-import { UIContext } from "ui"
 
 const MenuButton = (props: RotateButtonProps) => {
-  const { isMenuOpen, menuClickHandler, isSidebarOpen, isHomePage } =
-    useContext(UIContext)
+  const isHomePage = useHomePage()
+
+  const [isMenuOpen, menuClickHandler, menuCloseHandler] = useMenu()
 
   const MenuIcon = useMemo(
     () => (isMenuOpen ? X : isHomePage ? Menu : AlignLeft),
@@ -17,7 +20,7 @@ const MenuButton = (props: RotateButtonProps) => {
 
   const title = isMenuOpen ? "Close" : "Open Menu"
 
-  return !isSidebarOpen ? (
+  return (
     <Box sx={{ left: 0, flexDirection: "row", display: "flex" }}>
       <Tooltip title={title} placement="bottom-end">
         <RotateButton
@@ -33,9 +36,12 @@ const MenuButton = (props: RotateButtonProps) => {
           {isMenuOpen ? "Close" : "Menu"}
         </Typography>
       )}
+      <MenuDialog
+        onMenuItemClick={menuCloseHandler}
+        open={isMenuOpen}
+        onClose={menuCloseHandler}
+      />
     </Box>
-  ) : (
-    <></>
   )
 }
 

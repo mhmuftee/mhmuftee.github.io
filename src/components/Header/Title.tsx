@@ -1,14 +1,12 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import { Zoom, useTheme, Typography } from "@mui/material"
+import { UIContext } from "ui"
 
-type TitleProps = {
-  title: string
-}
-
-const Title = (props: TitleProps) => {
-  const { title } = props
+const Title = () => {
   const theme = useTheme()
+
+  const { title } = useContext(UIContext)
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,

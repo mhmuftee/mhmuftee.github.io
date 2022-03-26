@@ -10,6 +10,7 @@ type HelmetProps = {
 
 const Helmet = (props: HelmetProps) => {
   const { title, header } = props
+
   const { setHeaderTitle } = useContext(UIContext)
 
   useEffect(() => {

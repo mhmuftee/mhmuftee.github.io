@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import { GitHub, LinkedIn } from "@mui/icons-material"
 import { IconButton, LinearProgress, Typography } from "@mui/material"
@@ -9,6 +9,7 @@ import Footer from "components/Footer"
 import Particles from "react-tsparticles"
 import { getParticlesOptions } from "theme/createTheme"
 import { ISourceOptions } from "tsparticles"
+import axios from "utils/axios"
 
 const Links = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -47,6 +48,13 @@ const Home = () => {
     { name: "GitHub", Icon: GitHub, href: githubUrl },
     { name: "LinkedIn", Icon: LinkedIn, href: linkedinUrl },
   ]
+
+  useEffect(() => {
+    const data = async () =>
+      axios.get("/person/").then((res) => console.log(res.data))
+
+    data()
+  }, [])
 
   return (
     <>

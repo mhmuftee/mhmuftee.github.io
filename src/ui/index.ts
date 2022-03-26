@@ -1,3 +1,3 @@
-import { UIContext } from "./UIContext"
+import { TitleContext } from "./TitleContext"
 
-export { UIContext }
+export { TitleContext }
