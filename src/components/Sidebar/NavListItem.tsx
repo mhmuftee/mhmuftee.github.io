@@ -70,10 +70,7 @@ const NavListItem = (props: NavListItemProps) => {
         <ListItemIcon className={classes.icon}>
           <Icon />
         </ListItemIcon>
-        <ListItemText
-          primaryTypographyProps={{ fontWeight: 200 }}
-          primary={header}
-        />
+        <ListItemText primary={header} />
       </ListItemButton>
     </ListItem>
   )

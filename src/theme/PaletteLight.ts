@@ -15,6 +15,9 @@ export const lightPalette: PaletteOptions = {
     light: "#33A095",
     dark: "#005F56",
   },
+  text: {
+    primary: "#607d8b",
+  },
   background: {
     body: "#EEF5F9",
     header: "#1A61A4", //"#2588E5",
