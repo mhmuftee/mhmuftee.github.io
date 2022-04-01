@@ -14,14 +14,14 @@ const createTheme = (mode: ThemeMode) =>
   createMuiTheme({
     palette: mode === darkThemeMode ? darkPalette : lightPalette,
     typography: {
-      fontFamily: ["Nunito Sans", "Nunito"].join(","),
+      fontFamily: ["Poppins", "Nunito"].join(","),
       button: {
         textTransform: "none",
       },
     },
     measurements: {
       appbarheight: 70,
-      sidebarwidth: 200,
+      sidebarwidth: 230,
     },
     breakpoints: {
       values: {

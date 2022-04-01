@@ -22,21 +22,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: theme.spacing(1),
     padding: theme.spacing(1),
     "& svg, svg g, span": {
-      color: theme.palette.primary.main,
+      //color: "#607d8b",
+      color: "inherit",
     },
     "&:hover, &:focus": {
       "& svg, svg g, span": {
-        color: theme.palette.getContrastText(theme.palette.primary.main),
+        color: theme.palette.primary.main,
       },
     },
     "&.Mui-selected": {
-      background: theme.palette.primary.main,
       boxShadow: "2px 2px 5px rgb(0 0 0 / 20%)",
+      background: theme.palette.primary.main,
       "& svg, svg g, span": {
-        color: theme.palette.getContrastText(theme.palette.primary.main),
+        color: theme.palette.common.white,
       },
       "&:hover, &:focus": {
         background: theme.palette.primary.main,
+        "& svg, svg g, span": {
+          color: theme.palette.common.white,
+        },
       },
     },
   },
@@ -66,7 +70,10 @@ const NavListItem = (props: NavListItemProps) => {
         <ListItemIcon className={classes.icon}>
           <Icon />
         </ListItemIcon>
-        <ListItemText primary={header} />
+        <ListItemText
+          primaryTypographyProps={{ fontWeight: 200 }}
+          primary={header}
+        />
       </ListItemButton>
     </ListItem>
   )

@@ -51,7 +51,7 @@ const Home = () => {
 
   useEffect(() => {
     const data = async () =>
-      axios.get("/person/").then((res) => console.log(res.data))
+      axios.get("/person").then((res) => console.log(res.data))
 
     data()
   }, [])

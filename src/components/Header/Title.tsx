@@ -23,7 +23,7 @@ const Title = () => {
       }}
       unmountOnExit
     >
-      <Typography variant="h4" sx={{ margin: "auto" }}>
+      <Typography variant="h4" sx={{ margin: "auto", color: "white" }}>
         {title}
       </Typography>
     </Zoom>

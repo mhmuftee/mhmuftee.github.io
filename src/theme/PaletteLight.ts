@@ -6,9 +6,9 @@ export const lightPalette: PaletteOptions = {
   nodecolor: red[500],
   linkcolor: green[500],
   primary: {
-    main: "#FF9800",
-    light: "#FFAC33",
-    dark: "#B26A00",
+    main: "#26C6DA",
+    light: "#43cade",
+    dark: "#35a1b1",
   },
   secondary: {
     main: "#00897b",
@@ -16,9 +16,9 @@ export const lightPalette: PaletteOptions = {
     dark: "#005F56",
   },
   background: {
-    body: "#fafafa",
-    header: "#00897b",
-    sidebar: "#fff",
-    paper: "#fff",
+    body: "#EEF5F9",
+    header: "#1A61A4", //"#2588E5",
+    sidebar: "#FFFFFF",
+    paper: "#FFFFFF",
   },
 }

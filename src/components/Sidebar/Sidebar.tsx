@@ -8,35 +8,43 @@ import { routes } from "pages"
 import NavListItem from "./NavListItem"
 
 const Mixin = (theme: Theme): CSSObject => ({
-  flexShrink: 0,
-  background: theme.palette.background.body,
+  background: theme.palette.background.sidebar,
   width: theme.measurements.sidebarwidth,
-  boxSizing: "border-box",
 })
 
 const Drawer = styled(MuiDrawer)(({ theme }) => ({
   ...Mixin(theme),
-  "& .MuiDrawer-paper": Mixin(theme),
+  flexShrink: 0,
+  "& .MuiDrawer-paper": { ...Mixin(theme), boxSizing: "border-box" },
 }))
 
 const List = styled(MuiList)<{ component?: React.ElementType }>(
   ({ theme }) => ({
-    margin: theme.spacing(1),
+    //margin: theme.spacing(1),
     background: theme.palette.background.paper,
     flexGrow: 1,
     height: "100%",
   })
 )
 
-const Sidebar = (props: DrawerProps) => (
-  <Drawer anchor="left" variant="persistent" {...props}>
-    {props.children}
-    <List component={"nav"}>
-      {routes.map((routeProps, index) => (
-        <NavListItem key={index} {...routeProps} />
-      ))}
-    </List>
-  </Drawer>
-)
+const Sidebar = (props: DrawerProps) => {
+  const { children, ...dprops } = props
+
+  return (
+    <Drawer
+      PaperProps={{ elevation: 5 }}
+      anchor="left"
+      variant="persistent"
+      {...dprops}
+    >
+      {children}
+      <List component={"nav"}>
+        {routes.map((routeProps, index) => (
+          <NavListItem key={index} {...routeProps} />
+        ))}
+      </List>
+    </Drawer>
+  )
+}
 
 export default Sidebar

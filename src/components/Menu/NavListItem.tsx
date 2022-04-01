@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: theme.palette.primary.main,
     },
     "&:hover, &:focus": {
-      background: theme.palette.primary.main,
       boxShadow: "2px 2px 5px rgb(0 0 0 / 20%)",
+      background: theme.palette.primary.main,
       "& svg, svg g, span": {
-        color: theme.palette.getContrastText(theme.palette.primary.main),
+        color: theme.palette.common.white,
       },
     },
   },

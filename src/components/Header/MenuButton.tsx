@@ -20,12 +20,15 @@ const MenuButton = (props: RotateButtonProps) => {
 
   const title = isMenuOpen ? "Close" : "Open Menu"
 
+  const color = isHomePage ? "default" : "white"
+
   return (
     <Box sx={{ left: 0, flexDirection: "row", display: "flex" }}>
       <Tooltip title={title} placement="bottom-end">
         <RotateButton
           clicked={isMenuOpen}
           onClick={menuClickHandler}
+          sx={{ color }}
           {...props}
         >
           <MenuIcon />

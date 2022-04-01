@@ -23,7 +23,7 @@ const View = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   height: "100%",
   margin: theme.spacing(1),
-  background: theme.palette.background.paper,
+  background: theme.palette.background.body,
 }))
 
 const Layout = () => {

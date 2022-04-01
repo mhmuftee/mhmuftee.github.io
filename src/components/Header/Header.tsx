@@ -36,14 +36,14 @@ const Header = (props: HeaderProps) => {
 
   const isHomePage = useHomePage()
 
-  const elevation = useMemo(() => (isHomePage ? 0 : 3), [isHomePage])
+  const elevation = useMemo(() => (isHomePage ? 0 : 5), [isHomePage])
 
   return (
     <AppBar position="fixed" elevation={elevation} transparent={isHomePage}>
       <Toolbar>
-        {showMenuButton && <MenuButton edge="start" color="primary" />}
+        {showMenuButton && <MenuButton edge="start" />}
         {!isHomePage && <Title />}
-        <ThemeButton edge="end" color="primary" />
+        <ThemeButton edge="end" />
       </Toolbar>
     </AppBar>
   )
