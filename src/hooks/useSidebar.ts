@@ -12,8 +12,8 @@ export const useSidebar = (): boolean => {
 
   useEffect(() => {
     const shouldOpen = !isHomePage && !isSmallScreen
-    if (shouldOpen && !open) setOpen(true)
-    if (!shouldOpen && open) setOpen(false)
+    console.log(shouldOpen)
+    setOpen(shouldOpen)
   }, [isHomePage, isSmallScreen, open, setOpen])
 
   return open

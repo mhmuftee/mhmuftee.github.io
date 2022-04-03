@@ -2,7 +2,6 @@ import React from "react"
 
 import { CircularProgress } from "@mui/material"
 import { styled } from "@mui/material/styles"
-import Footer from "components/Footer"
 
 const Details = styled("div")(({ theme }) => ({
   top: 0,
@@ -18,16 +17,14 @@ const Details = styled("div")(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "center",
   background: theme.palette.background.body,
+  zIndex: theme.zIndex.appBar + 5,
 }))
 
 const Fallback = () => {
   return (
-    <>
-      <Details>
-        <CircularProgress color="primary" />
-      </Details>
-      <Footer />
-    </>
+    <Details>
+      <CircularProgress color="primary" />
+    </Details>
   )
 }
 

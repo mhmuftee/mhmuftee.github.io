@@ -12,8 +12,9 @@ const Main = styled("main", {
   flexGrow: 1,
   height: "100%",
   display: "flex",
+  overflowY: "hidden",
   flexDirection: "column",
-  background: theme.palette.background.body,
+  //background: theme.palette.background.body,
   ...(putLeftMargin && {
     marginLeft: `-${theme.measurements.sidebarwidth}px`,
     transition: theme.transitions.create("margin", {

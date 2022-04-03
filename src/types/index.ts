@@ -32,3 +32,14 @@ export interface IPage {
   Icon: SvgIcon
   Component: FunctionComponent
 }
+
+export interface IPerson {
+  name: string
+  profession: string
+  githubURL: string
+  linkedinURL: string
+}
+
+export interface ISkill {
+  name: string
+}

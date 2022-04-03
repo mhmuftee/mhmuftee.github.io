@@ -1,12 +1,11 @@
 import axios from "axios"
 
-const host = process.env.DATABASE_API
-
+const baseURL = String(process.env.DATABASE_API)
 const username = String(process.env.USER_NAME)
 const password = String(process.env.USER_PASS)
 
 const instance = axios.create({
-  baseURL: host,
+  baseURL,
   auth: {
     username,
     password,

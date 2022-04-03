@@ -11,6 +11,7 @@ import TitleContextProvider from "ui/TitleContextProvider"
 import Body from "./Body"
 
 const Root = styled(Box)({
+  flexGrow: 1,
   display: "flex",
   height: "100%",
 })
@@ -22,7 +23,8 @@ const Toolbar = styled(MuiToolbar)(({ theme }) => ({
 const View = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   height: "100%",
-  margin: theme.spacing(1),
+  overflowY: "auto",
+  //margin: theme.spacing(1),
   background: theme.palette.background.body,
 }))
 
@@ -31,9 +33,7 @@ const Layout = () => {
 
   return (
     <Root>
-      <Sidebar open={openSidebar}>
-        <Toolbar />
-      </Sidebar>
+      <Sidebar open={openSidebar}></Sidebar>
       <Body putLeftMargin={!openSidebar}>
         <Toolbar />
         <View>

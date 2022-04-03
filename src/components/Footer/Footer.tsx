@@ -34,7 +34,11 @@ const Link = styled(MuiLink)(({ theme }) => ({
   },
 }))
 
-const Footer = () => {
+type Props = {
+  name?: string
+}
+
+const Footer = ({ name = "" }: Props) => {
   const year = new Date().getFullYear()
 
   const url = String(process.env.SOURCE_CODE_REPO_URL)
@@ -45,7 +49,7 @@ const Footer = () => {
         <Copyright fontSize="small" color="primary" />
         &nbsp;
         <Typography variant="body1" color="primary">
-          {year} Mahfuzul Haque
+          {year} {name}
         </Typography>
       </Info>
       <Link

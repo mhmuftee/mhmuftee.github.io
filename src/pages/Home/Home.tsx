@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 
 import { GitHub, LinkedIn } from "@mui/icons-material"
 import { IconButton, LinearProgress, Typography } from "@mui/material"
@@ -6,10 +6,14 @@ import { styled } from "@mui/material/styles"
 import { useTheme } from "@mui/material/styles"
 import Tooltip from "components/common/Tooltip"
 import Footer from "components/Footer"
+import { useFetch } from "hooks/useFetch"
+import Fallback from "pages/Fallback"
 import Particles from "react-tsparticles"
 import { getParticlesOptions } from "theme/createTheme"
 import { ISourceOptions } from "tsparticles"
-import axios from "utils/axios"
+import { IPerson } from "types"
+
+import ErrorPage from "../Error"
 
 const Links = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -39,45 +43,48 @@ const Details = styled("div")(() => ({
 const Home = () => {
   const theme = useTheme()
 
-  const githubUrl = String(process.env.GITHUB_PROFILE_URL)
-  const linkedinUrl = String(process.env.LINKEDIN_PROFILE_URL)
+  const { data, isError, isLoading } = useFetch("/person", {} as IPerson)
+
+  const { profession, githubURL, linkedinURL, name } = data
 
   const particlesOptions = getParticlesOptions(theme) as ISourceOptions
 
   const links = [
-    { name: "GitHub", Icon: GitHub, href: githubUrl },
-    { name: "LinkedIn", Icon: LinkedIn, href: linkedinUrl },
+    { link: "GitHub", Icon: GitHub, href: githubURL },
+    { link: "LinkedIn", Icon: LinkedIn, href: linkedinURL },
   ]
 
-  useEffect(() => {
-    const data = async () =>
-      axios.get("/person").then((res) => console.log(res.data))
+  console.log(isLoading)
 
-    data()
-  }, [])
-
-  return (
+  return isError ? (
+    <ErrorPage />
+  ) : isLoading ? (
+    <Fallback />
+  ) : (
     <>
       <Particles options={particlesOptions} />
       <Details>
         <Typography align="center" variant="h1">
-          Mahfuzul Haque
+          {name}
         </Typography>
         <LinearProgress />
         <Typography align="center" variant="h3">
-          Student, Software Engineer
+          {profession}
         </Typography>
         <Links>
-          {links.map(({ name, Icon, href }) => (
-            <Tooltip key={name} title={`Go to ${name} profile`}>
-              <IconButton aria-label={name} href={href} target="_blank">
-                <Icon fontSize="large" sx={{ m: 1 }} />
-              </IconButton>
-            </Tooltip>
-          ))}
+          {links.map(({ link, Icon, href }) => {
+            const title = `Go to ${link} profile`
+            return (
+              <Tooltip key={link} title={title}>
+                <IconButton aria-label={title} href={href} target="_blank">
+                  <Icon fontSize="large" sx={{ m: 1 }} />
+                </IconButton>
+              </Tooltip>
+            )
+          })}
         </Links>
       </Details>
-      <Footer />
+      <Footer name={name} />
     </>
   )
 }
